@@ -17,6 +17,7 @@ main:
 statement:
         expression
     |   declaration
+    |   declaration_array
     |   assignment
     |   console_print
     |   if_statement
@@ -28,7 +29,15 @@ function_call:
     ;
 
 function_declaration:
-        ID PARANTHESE_START (OBJ_TYPE ID (COMMA OBJ_TYPE ID)*)? PARANTHESE_END statement_block
+        ID PARANTHESE_START ((       NUMBER
+                                 |   TEXT
+                                 |   BOOLEAN
+                                 |   LIST
+                                 ) ID (COMMA (       NUMBER
+                                                 |   TEXT
+                                                 |   BOOLEAN
+                                                 |   LIST
+                                                 ) ID)*)? PARANTHESE_END statement_block
     ;
 
 arguments:
@@ -51,8 +60,20 @@ console_scan_int:
         CONSOLE POINT SCANINT PARANTHESE_START PARANTHESE_END SEMICOLON
     ;
 
+declaration_array:
+        LIST LT ((       NUMBER
+                     |   TEXT
+                     |   BOOLEAN
+                     |   LIST
+                     ))? GT ID (EQUALS expression)? SEMICOLON
+    ;
+
 declaration:
-        OBJ_TYPE (LT OBJ_TYPE GT)? ID (EQUALS expression)? (POINT function_call)? SEMICOLON
+        (       NUMBER
+            |   TEXT
+            |   BOOLEAN
+            |   LIST
+            ) ID (EQUALS expression)? SEMICOLON
     ;
 
 assignment:
@@ -60,7 +81,7 @@ assignment:
     ;
 
 if_statement:
-        IF condition_block (ELSE IF condition_block)* (ELSE statement_block)?
+        IF condition_block (ELSE statement_block)?
     ;
 
 while_statement:
@@ -105,16 +126,22 @@ atom:
     |   STRING                      #AtomString
     ;
 
+LIST: 'List';
+BOOLEAN: 'Boolean';
+TEXT: 'Text';
+NUMBER: 'Number';
 
 OBJ_TYPE:(
-        'Number'
-    |   'Text'
-    |   'Boolean'
-    |   'List'
+        NUMBER
+    |   TEXT
+    |   BOOLEAN
+    |   LIST
     )
     ;
 ARGS: 'args';
 THEN: 'then';
+
+
 
 
 //Class name start with Capital letter

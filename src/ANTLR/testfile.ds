@@ -1,0 +1,4 @@
+Main[
+    Text zikria;
+    zikria = {test};
+]
