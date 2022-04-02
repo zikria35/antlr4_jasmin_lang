@@ -103,5 +103,32 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         return null;
     }
 
+    @Override
+    public Void visitExRelational(DaemonScriptParser.ExRelationalContext ctx) {
+        visit(ctx.expression(0));
+        visit(ctx.expression(1));
+        numTernary++;
+
+        String trueLabel = ("ternary" + numTernary);
+        String endLabel = ("ternaryEnd" + numTernary);
+
+        switch ( ctx.op.getText() ) {
+            case "<=":  jasminCode.add("if_icmple " + trueLabel); break;
+            case ">=":  jasminCode.add("if_icmpge " + trueLabel); break;
+            case "<":   jasminCode.add("if_icmplt " + trueLabel); break;
+            case ">":   jasminCode.add("if_icmpgt " + trueLabel); break;
+            case "==":  jasminCode.add("if_icmpeq " + trueLabel); break;
+            case "!=":  jasminCode.add("if_icmpne " + trueLabel); break;
+            default:    break;
+        }
+
+        visit(ctx.falseVal);
+        jasminCode.add("goto " + endLabel);
+        jasminCode.add(trueLabel + ":");
+        visit(ctx.trueVal);
+        jasminCode.add(endLabel + ":");
+
+        return null;
+    }
 
 }

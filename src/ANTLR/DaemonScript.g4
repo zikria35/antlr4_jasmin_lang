@@ -20,7 +20,7 @@ statement:
     |   declaration_array
     |   assignment
     |   console_print
-    |   if_statement
+    //|   if_statement
     |   while_statement
     ;
 
@@ -80,16 +80,8 @@ assignment:
         ID EQUALS expression SEMICOLON
     ;
 
-if_statement:
-        IF condition_block (ELSE IF condition_block)? (ELSE statement_block)?
-    ;
-
 while_statement:
         WHILE expression statement_block
-    ;
-
-condition_block:
-        expression THEN statement_block
     ;
 
 statement_block:
@@ -106,8 +98,11 @@ expression:
     |   NOT expression                                      #ExNot
     |   expression op=(MULT | DIV | MOD) expression         #ExMultiply
     |   expression op=(PLUS | MINUS) expression             #ExAdditive
-    |   expression op=(LTEQ | GTEQ | LT | GT) expression    #ExRelational
-    |   expression op=(EQ | NEQ) expression                 #ExEqual
+
+    |   IF PARANTHESE_START expression op=(LTEQ | GTEQ | LT | GT | EQ | NEQ) expression PARANTHESE_END
+    THEN  trueVal=statement_block  ELSE  falseVal=statement_block  #ExRelational
+
+    //TODO add Visitors CodeGenerator
     |   expression AND expression                           #ExAnd
     |   expression OR expression                            #ExOr
     |   array                                               #ExArray
@@ -121,10 +116,6 @@ expression:
         |   ID                          #AtomId
         |   STRING                      #AtomString
  ;
-
-atom:
-
-    ;
 
 LIST: 'List';
 BOOLEAN: 'Boolean';
@@ -140,9 +131,6 @@ OBJ_TYPE:(
     ;
 ARGS: 'args';
 THEN: 'then';
-
-
-
 
 //Class name start with Capital letter
 //Variable name start with Lowercase letter
@@ -191,7 +179,6 @@ EQUALS: '=';
 BRACE_START: '{';
 BRACE_END: '}';
 COMMA: ',';
-
 
 
 WS: [ \r\n\t]+ -> skip;

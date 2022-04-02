@@ -1,4 +1,4 @@
-// Generated from C:/Users/zikri/Desktop/School Saxion/compilers and operatingsystems/final/antlr4_jasmin_lang/src/ANTLR\DaemonScript.g4 by ANTLR 4.9.2
+// Generated from C:/Users/Zikiria/Desktop/School Saxion/antlr4_jasmin_lang/src/ANTLR\DaemonScript.g4 by ANTLR 4.9.2
 package ANTLR;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -184,18 +184,6 @@ public class DaemonScriptBaseListener implements DaemonScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIf_statement(DaemonScriptParser.If_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIf_statement(DaemonScriptParser.If_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterWhile_statement(DaemonScriptParser.While_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -203,18 +191,6 @@ public class DaemonScriptBaseListener implements DaemonScriptListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitWhile_statement(DaemonScriptParser.While_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCondition_block(DaemonScriptParser.Condition_blockContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCondition_block(DaemonScriptParser.Condition_blockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -376,18 +352,6 @@ public class DaemonScriptBaseListener implements DaemonScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExEqual(DaemonScriptParser.ExEqualContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExEqual(DaemonScriptParser.ExEqualContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterExFunctionCall(DaemonScriptParser.ExFunctionCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -455,18 +419,6 @@ public class DaemonScriptBaseListener implements DaemonScriptListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExRelational(DaemonScriptParser.ExRelationalContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAtom(DaemonScriptParser.AtomContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAtom(DaemonScriptParser.AtomContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

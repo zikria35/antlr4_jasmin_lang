@@ -1,4 +1,4 @@
-// Generated from C:/Users/zikri/Desktop/School Saxion/compilers and operatingsystems/final/antlr4_jasmin_lang/src/ANTLR\DaemonScript.g4 by ANTLR 4.9.2
+// Generated from C:/Users/Zikiria/Desktop/School Saxion/antlr4_jasmin_lang/src/ANTLR\DaemonScript.g4 by ANTLR 4.9.2
 package ANTLR;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -148,16 +148,6 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 */
 	void exitAssignment(DaemonScriptParser.AssignmentContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DaemonScriptParser#if_statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterIf_statement(DaemonScriptParser.If_statementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DaemonScriptParser#if_statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitIf_statement(DaemonScriptParser.If_statementContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link DaemonScriptParser#while_statement}.
 	 * @param ctx the parse tree
 	 */
@@ -167,16 +157,6 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWhile_statement(DaemonScriptParser.While_statementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DaemonScriptParser#condition_block}.
-	 * @param ctx the parse tree
-	 */
-	void enterCondition_block(DaemonScriptParser.Condition_blockContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DaemonScriptParser#condition_block}.
-	 * @param ctx the parse tree
-	 */
-	void exitCondition_block(DaemonScriptParser.Condition_blockContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DaemonScriptParser#statement_block}.
 	 * @param ctx the parse tree
@@ -330,18 +310,6 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 */
 	void exitAtomNumber(DaemonScriptParser.AtomNumberContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExEqual}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterExEqual(DaemonScriptParser.ExEqualContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExEqual}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitExEqual(DaemonScriptParser.ExEqualContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code ExFunctionCall}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -413,14 +381,4 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExRelational(DaemonScriptParser.ExRelationalContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 */
-	void enterAtom(DaemonScriptParser.AtomContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 */
-	void exitAtom(DaemonScriptParser.AtomContext ctx);
 }

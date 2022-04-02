@@ -1,4 +1,4 @@
-// Generated from C:/Users/zikri/Desktop/School Saxion/compilers and operatingsystems/final/antlr4_jasmin_lang/src/ANTLR\DaemonScript.g4 by ANTLR 4.9.2
+// Generated from C:/Users/Zikiria/Desktop/School Saxion/antlr4_jasmin_lang/src/ANTLR\DaemonScript.g4 by ANTLR 4.9.2
 package ANTLR;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -95,23 +95,11 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignment(DaemonScriptParser.AssignmentContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DaemonScriptParser#if_statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIf_statement(DaemonScriptParser.If_statementContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link DaemonScriptParser#while_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitWhile_statement(DaemonScriptParser.While_statementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DaemonScriptParser#condition_block}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCondition_block(DaemonScriptParser.Condition_blockContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DaemonScriptParser#statement_block}.
 	 * @param ctx the parse tree
@@ -202,13 +190,6 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtomNumber(DaemonScriptParser.AtomNumberContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExEqual}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExEqual(DaemonScriptParser.ExEqualContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ExFunctionCall}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -250,10 +231,4 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExRelational(DaemonScriptParser.ExRelationalContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAtom(DaemonScriptParser.AtomContext ctx);
 }
