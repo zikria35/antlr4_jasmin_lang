@@ -1177,11 +1177,20 @@ public class DaemonScriptParser extends Parser {
 	}
 
 	public static class If_statementContext extends ParserRuleContext {
-		public TerminalNode IF() { return getToken(DaemonScriptParser.IF, 0); }
-		public Condition_blockContext condition_block() {
-			return getRuleContext(Condition_blockContext.class,0);
+		public List<TerminalNode> IF() { return getTokens(DaemonScriptParser.IF); }
+		public TerminalNode IF(int i) {
+			return getToken(DaemonScriptParser.IF, i);
 		}
-		public TerminalNode ELSE() { return getToken(DaemonScriptParser.ELSE, 0); }
+		public List<Condition_blockContext> condition_block() {
+			return getRuleContexts(Condition_blockContext.class);
+		}
+		public Condition_blockContext condition_block(int i) {
+			return getRuleContext(Condition_blockContext.class,i);
+		}
+		public List<TerminalNode> ELSE() { return getTokens(DaemonScriptParser.ELSE); }
+		public TerminalNode ELSE(int i) {
+			return getToken(DaemonScriptParser.ELSE, i);
+		}
 		public Statement_blockContext statement_block() {
 			return getRuleContext(Statement_blockContext.class,0);
 		}
@@ -1215,14 +1224,28 @@ public class DaemonScriptParser extends Parser {
 			match(IF);
 			setState(174);
 			condition_block();
-			setState(177);
+			setState(178);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==ELSE) {
+			switch ( getInterpreter().adaptivePredict(_input,16,_ctx) ) {
+			case 1:
 				{
 				setState(175);
 				match(ELSE);
 				setState(176);
+				match(IF);
+				setState(177);
+				condition_block();
+				}
+				break;
+			}
+			setState(182);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==ELSE) {
+				{
+				setState(180);
+				match(ELSE);
+				setState(181);
 				statement_block();
 				}
 			}
@@ -1273,11 +1296,11 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(179);
+			setState(184);
 			match(WHILE);
-			setState(180);
+			setState(185);
 			expression(0);
-			setState(181);
+			setState(186);
 			statement_block();
 			}
 		}
@@ -1325,11 +1348,11 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(183);
+			setState(188);
 			expression(0);
-			setState(184);
+			setState(189);
 			match(THEN);
-			setState(185);
+			setState(190);
 			statement_block();
 			}
 		}
@@ -1375,11 +1398,11 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(187);
+			setState(192);
 			match(BRACKET_START);
-			setState(188);
+			setState(193);
 			block();
-			setState(189);
+			setState(194);
 			match(BRACKET_END);
 			}
 		}
@@ -1427,17 +1450,17 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(194);
+			setState(199);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LIST) | (1L << BOOLEAN) | (1L << TEXT) | (1L << NUMBER) | (1L << IF) | (1L << WHILE) | (1L << TRUE) | (1L << FALSE) | (1L << MINUS) | (1L << NOT) | (1L << CONSOLE) | (1L << ID) | (1L << INT) | (1L << FLOAT) | (1L << STRING) | (1L << PARANTHESE_START) | (1L << BRACKET_START))) != 0)) {
 				{
 				{
-				setState(191);
+				setState(196);
 				statement();
 				}
 				}
-				setState(196);
+				setState(201);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1597,6 +1620,97 @@ public class DaemonScriptParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class ExParContext extends ExpressionContext {
+		public TerminalNode PARANTHESE_START() { return getToken(DaemonScriptParser.PARANTHESE_START, 0); }
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public TerminalNode PARANTHESE_END() { return getToken(DaemonScriptParser.PARANTHESE_END, 0); }
+		public ExParContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterExPar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitExPar(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitExPar(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AtomIdContext extends ExpressionContext {
+		public TerminalNode ID() { return getToken(DaemonScriptParser.ID, 0); }
+		public AtomIdContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterAtomId(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitAtomId(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitAtomId(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AtomStringContext extends ExpressionContext {
+		public TerminalNode STRING() { return getToken(DaemonScriptParser.STRING, 0); }
+		public AtomStringContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterAtomString(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitAtomString(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitAtomString(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AtomBooleanContext extends ExpressionContext {
+		public TerminalNode TRUE() { return getToken(DaemonScriptParser.TRUE, 0); }
+		public TerminalNode FALSE() { return getToken(DaemonScriptParser.FALSE, 0); }
+		public AtomBooleanContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterAtomBoolean(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitAtomBoolean(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitAtomBoolean(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AtomNumberContext extends ExpressionContext {
+		public TerminalNode INT() { return getToken(DaemonScriptParser.INT, 0); }
+		public TerminalNode FLOAT() { return getToken(DaemonScriptParser.FLOAT, 0); }
+		public AtomNumberContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterAtomNumber(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitAtomNumber(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitAtomNumber(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 	public static class ExEqualContext extends ExpressionContext {
 		public Token op;
 		public List<ExpressionContext> expression() {
@@ -1722,25 +1836,6 @@ public class DaemonScriptParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class ExAtomContext extends ExpressionContext {
-		public AtomContext atom() {
-			return getRuleContext(AtomContext.class,0);
-		}
-		public ExAtomContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterExAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitExAtom(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitExAtom(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class ExRelationalContext extends ExpressionContext {
 		public Token op;
 		public List<ExpressionContext> expression() {
@@ -1785,19 +1880,19 @@ public class DaemonScriptParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(208);
+			setState(220);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,19,_ctx) ) {
 			case 1:
 				{
 				_localctx = new ExMinusContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(198);
+				setState(203);
 				match(MINUS);
-				setState(199);
-				expression(14);
+				setState(204);
+				expression(18);
 				}
 				break;
 			case 2:
@@ -1805,10 +1900,10 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExNotContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(200);
+				setState(205);
 				match(NOT);
-				setState(201);
-				expression(13);
+				setState(206);
+				expression(17);
 				}
 				break;
 			case 3:
@@ -1816,7 +1911,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExArrayContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(202);
+				setState(207);
 				array();
 				}
 				break;
@@ -1825,7 +1920,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExFunctionDeclarationContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(203);
+				setState(208);
 				function_declaration();
 				}
 				break;
@@ -1834,7 +1929,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExFunctionCallContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(204);
+				setState(209);
 				function_call();
 				}
 				break;
@@ -1843,7 +1938,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExConsoleScanStringContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(205);
+				setState(210);
 				console_scan_string();
 				}
 				break;
@@ -1852,39 +1947,95 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExConsoleScanIntContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(206);
+				setState(211);
 				console_scan_int();
 				}
 				break;
 			case 8:
 				{
-				_localctx = new ExAtomContext(_localctx);
+				_localctx = new ExParContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(207);
-				atom();
+				setState(212);
+				match(PARANTHESE_START);
+				setState(213);
+				expression(0);
+				setState(214);
+				match(PARANTHESE_END);
+				}
+				break;
+			case 9:
+				{
+				_localctx = new AtomNumberContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(216);
+				_la = _input.LA(1);
+				if ( !(_la==INT || _la==FLOAT) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 10:
+				{
+				_localctx = new AtomBooleanContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(217);
+				_la = _input.LA(1);
+				if ( !(_la==TRUE || _la==FALSE) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 11:
+				{
+				_localctx = new AtomIdContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(218);
+				match(ID);
+				}
+				break;
+			case 12:
+				{
+				_localctx = new AtomStringContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(219);
+				match(STRING);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(230);
+			setState(242);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(228);
+					setState(240);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,19,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ExMultiplyContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(210);
-						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
-						setState(211);
+						setState(222);
+						if (!(precpred(_ctx, 16))) throw new FailedPredicateException(this, "precpred(_ctx, 16)");
+						setState(223);
 						((ExMultiplyContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MULT) | (1L << DIV) | (1L << MOD))) != 0)) ) {
@@ -1895,17 +2046,17 @@ public class DaemonScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(212);
-						expression(13);
+						setState(224);
+						expression(17);
 						}
 						break;
 					case 2:
 						{
 						_localctx = new ExAdditiveContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(213);
-						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
-						setState(214);
+						setState(225);
+						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
+						setState(226);
 						((ExAdditiveContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==PLUS || _la==MINUS) ) {
@@ -1916,17 +2067,17 @@ public class DaemonScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(215);
-						expression(12);
+						setState(227);
+						expression(16);
 						}
 						break;
 					case 3:
 						{
 						_localctx = new ExRelationalContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(216);
-						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
-						setState(217);
+						setState(228);
+						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
+						setState(229);
 						((ExRelationalContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << GT) | (1L << LT) | (1L << GTEQ) | (1L << LTEQ))) != 0)) ) {
@@ -1937,17 +2088,17 @@ public class DaemonScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(218);
-						expression(11);
+						setState(230);
+						expression(15);
 						}
 						break;
 					case 4:
 						{
 						_localctx = new ExEqualContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(219);
-						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
-						setState(220);
+						setState(231);
+						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
+						setState(232);
 						((ExEqualContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==EQ || _la==NEQ) ) {
@@ -1958,40 +2109,40 @@ public class DaemonScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(221);
-						expression(10);
+						setState(233);
+						expression(14);
 						}
 						break;
 					case 5:
 						{
 						_localctx = new ExAndContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(222);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
-						setState(223);
+						setState(234);
+						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
+						setState(235);
 						match(AND);
-						setState(224);
-						expression(9);
+						setState(236);
+						expression(13);
 						}
 						break;
 					case 6:
 						{
 						_localctx = new ExOrContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(225);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(226);
+						setState(237);
+						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
+						setState(238);
 						match(OR);
-						setState(227);
-						expression(8);
+						setState(239);
+						expression(12);
 						}
 						break;
 					}
 					} 
 				}
-				setState(232);
+				setState(244);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
 			}
 			}
 		}
@@ -2011,100 +2162,17 @@ public class DaemonScriptParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_atom; }
-	 
-		public AtomContext() { }
-		public void copyFrom(AtomContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class AtomNumberContext extends AtomContext {
-		public TerminalNode INT() { return getToken(DaemonScriptParser.INT, 0); }
-		public TerminalNode FLOAT() { return getToken(DaemonScriptParser.FLOAT, 0); }
-		public AtomNumberContext(AtomContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterAtomNumber(this);
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterAtom(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitAtomNumber(this);
+			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitAtom(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitAtomNumber(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ExParContext extends AtomContext {
-		public TerminalNode PARANTHESE_START() { return getToken(DaemonScriptParser.PARANTHESE_START, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public TerminalNode PARANTHESE_END() { return getToken(DaemonScriptParser.PARANTHESE_END, 0); }
-		public ExParContext(AtomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterExPar(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitExPar(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitExPar(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class AtomIdContext extends AtomContext {
-		public TerminalNode ID() { return getToken(DaemonScriptParser.ID, 0); }
-		public AtomIdContext(AtomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterAtomId(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitAtomId(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitAtomId(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class AtomStringContext extends AtomContext {
-		public TerminalNode STRING() { return getToken(DaemonScriptParser.STRING, 0); }
-		public AtomStringContext(AtomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterAtomString(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitAtomString(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitAtomString(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class AtomBooleanContext extends AtomContext {
-		public TerminalNode TRUE() { return getToken(DaemonScriptParser.TRUE, 0); }
-		public TerminalNode FALSE() { return getToken(DaemonScriptParser.FALSE, 0); }
-		public AtomBooleanContext(AtomContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterAtomBoolean(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitAtomBoolean(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitAtomBoolean(this);
+			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitAtom(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2112,75 +2180,9 @@ public class DaemonScriptParser extends Parser {
 	public final AtomContext atom() throws RecognitionException {
 		AtomContext _localctx = new AtomContext(_ctx, getState());
 		enterRule(_localctx, 40, RULE_atom);
-		int _la;
 		try {
-			setState(241);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case PARANTHESE_START:
-				_localctx = new ExParContext(_localctx);
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(233);
-				match(PARANTHESE_START);
-				setState(234);
-				expression(0);
-				setState(235);
-				match(PARANTHESE_END);
-				}
-				break;
-			case INT:
-			case FLOAT:
-				_localctx = new AtomNumberContext(_localctx);
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(237);
-				_la = _input.LA(1);
-				if ( !(_la==INT || _la==FLOAT) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				}
-				break;
-			case TRUE:
-			case FALSE:
-				_localctx = new AtomBooleanContext(_localctx);
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(238);
-				_la = _input.LA(1);
-				if ( !(_la==TRUE || _la==FALSE) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				}
-				break;
-			case ID:
-				_localctx = new AtomIdContext(_localctx);
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(239);
-				match(ID);
-				}
-				break;
-			case STRING:
-				_localctx = new AtomStringContext(_localctx);
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(240);
-				match(STRING);
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			enterOuterAlt(_localctx, 1);
+			{
 			}
 		}
 		catch (RecognitionException re) {
@@ -2204,23 +2206,23 @@ public class DaemonScriptParser extends Parser {
 	private boolean expression_sempred(ExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 12);
+			return precpred(_ctx, 16);
 		case 1:
-			return precpred(_ctx, 11);
+			return precpred(_ctx, 15);
 		case 2:
-			return precpred(_ctx, 10);
+			return precpred(_ctx, 14);
 		case 3:
-			return precpred(_ctx, 9);
+			return precpred(_ctx, 13);
 		case 4:
-			return precpred(_ctx, 8);
+			return precpred(_ctx, 12);
 		case 5:
-			return precpred(_ctx, 7);
+			return precpred(_ctx, 11);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\65\u00f6\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\65\u00fa\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\3\2\3\2\3\3\3\3\3\3\3\4\3\4\3"+
@@ -2232,74 +2234,76 @@ public class DaemonScriptParser extends Parser {
 		"\n\n\3\n\3\n\3\n\3\13\3\13\3\13\3\13\3\13\3\13\5\13\u008d\n\13\3\f\3\f"+
 		"\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\5\r\u0099\n\r\3\r\3\r\3\r\3\r\5\r\u009f"+
 		"\n\r\3\r\3\r\3\16\3\16\3\16\3\16\5\16\u00a7\n\16\3\16\3\16\3\17\3\17\3"+
-		"\17\3\17\3\17\3\20\3\20\3\20\3\20\5\20\u00b4\n\20\3\21\3\21\3\21\3\21"+
-		"\3\22\3\22\3\22\3\22\3\23\3\23\3\23\3\23\3\24\7\24\u00c3\n\24\f\24\16"+
-		"\24\u00c6\13\24\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25"+
-		"\5\25\u00d3\n\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25"+
-		"\3\25\3\25\3\25\3\25\3\25\3\25\3\25\7\25\u00e7\n\25\f\25\16\25\u00ea\13"+
-		"\25\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\5\26\u00f4\n\26\3\26\2\3("+
-		"\27\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*\2\t\3\2\4\7\3\2\32\34"+
-		"\3\2\30\31\3\2\24\27\3\2\22\23\3\2&\'\3\2\16\17\2\u0108\2,\3\2\2\2\4."+
-		"\3\2\2\2\6\61\3\2\2\2\bG\3\2\2\2\nK\3\2\2\2\fV\3\2\2\2\16g\3\2\2\2\20"+
-		"o\3\2\2\2\22|\3\2\2\2\24\u0086\3\2\2\2\26\u008e\3\2\2\2\30\u0095\3\2\2"+
-		"\2\32\u00a2\3\2\2\2\34\u00aa\3\2\2\2\36\u00af\3\2\2\2 \u00b5\3\2\2\2\""+
-		"\u00b9\3\2\2\2$\u00bd\3\2\2\2&\u00c4\3\2\2\2(\u00d2\3\2\2\2*\u00f3\3\2"+
-		"\2\2,-\5\4\3\2-\3\3\2\2\2./\5\6\4\2/\60\7\2\2\3\60\5\3\2\2\2\61\62\7\3"+
-		"\2\2\62\66\7.\2\2\63\65\5\b\5\2\64\63\3\2\2\2\658\3\2\2\2\66\64\3\2\2"+
-		"\2\66\67\3\2\2\2\679\3\2\2\28\66\3\2\2\29=\7/\2\2:<\5\b\5\2;:\3\2\2\2"+
-		"<?\3\2\2\2=;\3\2\2\2=>\3\2\2\2>\7\3\2\2\2?=\3\2\2\2@H\5(\25\2AH\5\32\16"+
-		"\2BH\5\30\r\2CH\5\34\17\2DH\5\22\n\2EH\5\36\20\2FH\5 \21\2G@\3\2\2\2G"+
-		"A\3\2\2\2GB\3\2\2\2GC\3\2\2\2GD\3\2\2\2GE\3\2\2\2GF\3\2\2\2H\t\3\2\2\2"+
-		"IJ\7$\2\2JL\7#\2\2KI\3\2\2\2KL\3\2\2\2LM\3\2\2\2MN\7$\2\2NP\7,\2\2OQ\5"+
-		"\16\b\2PO\3\2\2\2PQ\3\2\2\2QR\3\2\2\2RT\7-\2\2SU\7*\2\2TS\3\2\2\2TU\3"+
-		"\2\2\2U\13\3\2\2\2VW\7$\2\2Wb\7,\2\2XY\t\2\2\2Y_\7$\2\2Z[\7\63\2\2[\\"+
-		"\t\2\2\2\\^\7$\2\2]Z\3\2\2\2^a\3\2\2\2_]\3\2\2\2_`\3\2\2\2`c\3\2\2\2a"+
-		"_\3\2\2\2bX\3\2\2\2bc\3\2\2\2cd\3\2\2\2de\7-\2\2ef\5$\23\2f\r\3\2\2\2"+
-		"gl\5(\25\2hi\7\63\2\2ik\5(\25\2jh\3\2\2\2kn\3\2\2\2lj\3\2\2\2lm\3\2\2"+
-		"\2m\17\3\2\2\2nl\3\2\2\2ox\7.\2\2pu\5(\25\2qr\7\63\2\2rt\5(\25\2sq\3\2"+
-		"\2\2tw\3\2\2\2us\3\2\2\2uv\3\2\2\2vy\3\2\2\2wu\3\2\2\2xp\3\2\2\2xy\3\2"+
-		"\2\2yz\3\2\2\2z{\7/\2\2{\21\3\2\2\2|}\7\37\2\2}~\7#\2\2~\177\7 \2\2\177"+
-		"\u0081\7,\2\2\u0080\u0082\5(\25\2\u0081\u0080\3\2\2\2\u0081\u0082\3\2"+
-		"\2\2\u0082\u0083\3\2\2\2\u0083\u0084\7-\2\2\u0084\u0085\7*\2\2\u0085\23"+
-		"\3\2\2\2\u0086\u0087\7\37\2\2\u0087\u0088\7#\2\2\u0088\u0089\7\"\2\2\u0089"+
-		"\u008a\7,\2\2\u008a\u008c\7-\2\2\u008b\u008d\7*\2\2\u008c\u008b\3\2\2"+
-		"\2\u008c\u008d\3\2\2\2\u008d\25\3\2\2\2\u008e\u008f\7\37\2\2\u008f\u0090"+
-		"\7#\2\2\u0090\u0091\7!\2\2\u0091\u0092\7,\2\2\u0092\u0093\7-\2\2\u0093"+
-		"\u0094\7*\2\2\u0094\27\3\2\2\2\u0095\u0096\7\4\2\2\u0096\u0098\7\25\2"+
-		"\2\u0097\u0099\t\2\2\2\u0098\u0097\3\2\2\2\u0098\u0099\3\2\2\2\u0099\u009a"+
-		"\3\2\2\2\u009a\u009b\7\24\2\2\u009b\u009e\7$\2\2\u009c\u009d\7\60\2\2"+
-		"\u009d\u009f\5(\25\2\u009e\u009c\3\2\2\2\u009e\u009f\3\2\2\2\u009f\u00a0"+
-		"\3\2\2\2\u00a0\u00a1\7*\2\2\u00a1\31\3\2\2\2\u00a2\u00a3\t\2\2\2\u00a3"+
-		"\u00a6\7$\2\2\u00a4\u00a5\7\60\2\2\u00a5\u00a7\5(\25\2\u00a6\u00a4\3\2"+
-		"\2\2\u00a6\u00a7\3\2\2\2\u00a7\u00a8\3\2\2\2\u00a8\u00a9\7*\2\2\u00a9"+
-		"\33\3\2\2\2\u00aa\u00ab\7$\2\2\u00ab\u00ac\7\60\2\2\u00ac\u00ad\5(\25"+
-		"\2\u00ad\u00ae\7*\2\2\u00ae\35\3\2\2\2\u00af\u00b0\7\13\2\2\u00b0\u00b3"+
-		"\5\"\22\2\u00b1\u00b2\7\f\2\2\u00b2\u00b4\5$\23\2\u00b3\u00b1\3\2\2\2"+
-		"\u00b3\u00b4\3\2\2\2\u00b4\37\3\2\2\2\u00b5\u00b6\7\r\2\2\u00b6\u00b7"+
-		"\5(\25\2\u00b7\u00b8\5$\23\2\u00b8!\3\2\2\2\u00b9\u00ba\5(\25\2\u00ba"+
-		"\u00bb\7\n\2\2\u00bb\u00bc\5$\23\2\u00bc#\3\2\2\2\u00bd\u00be\7.\2\2\u00be"+
-		"\u00bf\5&\24\2\u00bf\u00c0\7/\2\2\u00c0%\3\2\2\2\u00c1\u00c3\5\b\5\2\u00c2"+
-		"\u00c1\3\2\2\2\u00c3\u00c6\3\2\2\2\u00c4\u00c2\3\2\2\2\u00c4\u00c5\3\2"+
-		"\2\2\u00c5\'\3\2\2\2\u00c6\u00c4\3\2\2\2\u00c7\u00c8\b\25\1\2\u00c8\u00c9"+
-		"\7\31\2\2\u00c9\u00d3\5(\25\20\u00ca\u00cb\7\35\2\2\u00cb\u00d3\5(\25"+
-		"\17\u00cc\u00d3\5\20\t\2\u00cd\u00d3\5\f\7\2\u00ce\u00d3\5\n\6\2\u00cf"+
-		"\u00d3\5\24\13\2\u00d0\u00d3\5\26\f\2\u00d1\u00d3\5*\26\2\u00d2\u00c7"+
-		"\3\2\2\2\u00d2\u00ca\3\2\2\2\u00d2\u00cc\3\2\2\2\u00d2\u00cd\3\2\2\2\u00d2"+
-		"\u00ce\3\2\2\2\u00d2\u00cf\3\2\2\2\u00d2\u00d0\3\2\2\2\u00d2\u00d1\3\2"+
-		"\2\2\u00d3\u00e8\3\2\2\2\u00d4\u00d5\f\16\2\2\u00d5\u00d6\t\3\2\2\u00d6"+
-		"\u00e7\5(\25\17\u00d7\u00d8\f\r\2\2\u00d8\u00d9\t\4\2\2\u00d9\u00e7\5"+
-		"(\25\16\u00da\u00db\f\f\2\2\u00db\u00dc\t\5\2\2\u00dc\u00e7\5(\25\r\u00dd"+
-		"\u00de\f\13\2\2\u00de\u00df\t\6\2\2\u00df\u00e7\5(\25\f\u00e0\u00e1\f"+
-		"\n\2\2\u00e1\u00e2\7\21\2\2\u00e2\u00e7\5(\25\13\u00e3\u00e4\f\t\2\2\u00e4"+
-		"\u00e5\7\20\2\2\u00e5\u00e7\5(\25\n\u00e6\u00d4\3\2\2\2\u00e6\u00d7\3"+
-		"\2\2\2\u00e6\u00da\3\2\2\2\u00e6\u00dd\3\2\2\2\u00e6\u00e0\3\2\2\2\u00e6"+
-		"\u00e3\3\2\2\2\u00e7\u00ea\3\2\2\2\u00e8\u00e6\3\2\2\2\u00e8\u00e9\3\2"+
-		"\2\2\u00e9)\3\2\2\2\u00ea\u00e8\3\2\2\2\u00eb\u00ec\7,\2\2\u00ec\u00ed"+
-		"\5(\25\2\u00ed\u00ee\7-\2\2\u00ee\u00f4\3\2\2\2\u00ef\u00f4\t\7\2\2\u00f0"+
-		"\u00f4\t\b\2\2\u00f1\u00f4\7$\2\2\u00f2\u00f4\7)\2\2\u00f3\u00eb\3\2\2"+
-		"\2\u00f3\u00ef\3\2\2\2\u00f3\u00f0\3\2\2\2\u00f3\u00f1\3\2\2\2\u00f3\u00f2"+
-		"\3\2\2\2\u00f4+\3\2\2\2\30\66=GKPT_blux\u0081\u008c\u0098\u009e\u00a6"+
-		"\u00b3\u00c4\u00d2\u00e6\u00e8\u00f3";
+		"\17\3\17\3\17\3\20\3\20\3\20\3\20\3\20\5\20\u00b5\n\20\3\20\3\20\5\20"+
+		"\u00b9\n\20\3\21\3\21\3\21\3\21\3\22\3\22\3\22\3\22\3\23\3\23\3\23\3\23"+
+		"\3\24\7\24\u00c8\n\24\f\24\16\24\u00cb\13\24\3\25\3\25\3\25\3\25\3\25"+
+		"\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\5\25"+
+		"\u00df\n\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25"+
+		"\3\25\3\25\3\25\3\25\3\25\3\25\7\25\u00f3\n\25\f\25\16\25\u00f6\13\25"+
+		"\3\26\3\26\3\26\2\3(\27\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*"+
+		"\2\t\3\2\4\7\3\2&\'\3\2\16\17\3\2\32\34\3\2\30\31\3\2\24\27\3\2\22\23"+
+		"\2\u010d\2,\3\2\2\2\4.\3\2\2\2\6\61\3\2\2\2\bG\3\2\2\2\nK\3\2\2\2\fV\3"+
+		"\2\2\2\16g\3\2\2\2\20o\3\2\2\2\22|\3\2\2\2\24\u0086\3\2\2\2\26\u008e\3"+
+		"\2\2\2\30\u0095\3\2\2\2\32\u00a2\3\2\2\2\34\u00aa\3\2\2\2\36\u00af\3\2"+
+		"\2\2 \u00ba\3\2\2\2\"\u00be\3\2\2\2$\u00c2\3\2\2\2&\u00c9\3\2\2\2(\u00de"+
+		"\3\2\2\2*\u00f7\3\2\2\2,-\5\4\3\2-\3\3\2\2\2./\5\6\4\2/\60\7\2\2\3\60"+
+		"\5\3\2\2\2\61\62\7\3\2\2\62\66\7.\2\2\63\65\5\b\5\2\64\63\3\2\2\2\658"+
+		"\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\679\3\2\2\28\66\3\2\2\29=\7/\2\2"+
+		":<\5\b\5\2;:\3\2\2\2<?\3\2\2\2=;\3\2\2\2=>\3\2\2\2>\7\3\2\2\2?=\3\2\2"+
+		"\2@H\5(\25\2AH\5\32\16\2BH\5\30\r\2CH\5\34\17\2DH\5\22\n\2EH\5\36\20\2"+
+		"FH\5 \21\2G@\3\2\2\2GA\3\2\2\2GB\3\2\2\2GC\3\2\2\2GD\3\2\2\2GE\3\2\2\2"+
+		"GF\3\2\2\2H\t\3\2\2\2IJ\7$\2\2JL\7#\2\2KI\3\2\2\2KL\3\2\2\2LM\3\2\2\2"+
+		"MN\7$\2\2NP\7,\2\2OQ\5\16\b\2PO\3\2\2\2PQ\3\2\2\2QR\3\2\2\2RT\7-\2\2S"+
+		"U\7*\2\2TS\3\2\2\2TU\3\2\2\2U\13\3\2\2\2VW\7$\2\2Wb\7,\2\2XY\t\2\2\2Y"+
+		"_\7$\2\2Z[\7\63\2\2[\\\t\2\2\2\\^\7$\2\2]Z\3\2\2\2^a\3\2\2\2_]\3\2\2\2"+
+		"_`\3\2\2\2`c\3\2\2\2a_\3\2\2\2bX\3\2\2\2bc\3\2\2\2cd\3\2\2\2de\7-\2\2"+
+		"ef\5$\23\2f\r\3\2\2\2gl\5(\25\2hi\7\63\2\2ik\5(\25\2jh\3\2\2\2kn\3\2\2"+
+		"\2lj\3\2\2\2lm\3\2\2\2m\17\3\2\2\2nl\3\2\2\2ox\7.\2\2pu\5(\25\2qr\7\63"+
+		"\2\2rt\5(\25\2sq\3\2\2\2tw\3\2\2\2us\3\2\2\2uv\3\2\2\2vy\3\2\2\2wu\3\2"+
+		"\2\2xp\3\2\2\2xy\3\2\2\2yz\3\2\2\2z{\7/\2\2{\21\3\2\2\2|}\7\37\2\2}~\7"+
+		"#\2\2~\177\7 \2\2\177\u0081\7,\2\2\u0080\u0082\5(\25\2\u0081\u0080\3\2"+
+		"\2\2\u0081\u0082\3\2\2\2\u0082\u0083\3\2\2\2\u0083\u0084\7-\2\2\u0084"+
+		"\u0085\7*\2\2\u0085\23\3\2\2\2\u0086\u0087\7\37\2\2\u0087\u0088\7#\2\2"+
+		"\u0088\u0089\7\"\2\2\u0089\u008a\7,\2\2\u008a\u008c\7-\2\2\u008b\u008d"+
+		"\7*\2\2\u008c\u008b\3\2\2\2\u008c\u008d\3\2\2\2\u008d\25\3\2\2\2\u008e"+
+		"\u008f\7\37\2\2\u008f\u0090\7#\2\2\u0090\u0091\7!\2\2\u0091\u0092\7,\2"+
+		"\2\u0092\u0093\7-\2\2\u0093\u0094\7*\2\2\u0094\27\3\2\2\2\u0095\u0096"+
+		"\7\4\2\2\u0096\u0098\7\25\2\2\u0097\u0099\t\2\2\2\u0098\u0097\3\2\2\2"+
+		"\u0098\u0099\3\2\2\2\u0099\u009a\3\2\2\2\u009a\u009b\7\24\2\2\u009b\u009e"+
+		"\7$\2\2\u009c\u009d\7\60\2\2\u009d\u009f\5(\25\2\u009e\u009c\3\2\2\2\u009e"+
+		"\u009f\3\2\2\2\u009f\u00a0\3\2\2\2\u00a0\u00a1\7*\2\2\u00a1\31\3\2\2\2"+
+		"\u00a2\u00a3\t\2\2\2\u00a3\u00a6\7$\2\2\u00a4\u00a5\7\60\2\2\u00a5\u00a7"+
+		"\5(\25\2\u00a6\u00a4\3\2\2\2\u00a6\u00a7\3\2\2\2\u00a7\u00a8\3\2\2\2\u00a8"+
+		"\u00a9\7*\2\2\u00a9\33\3\2\2\2\u00aa\u00ab\7$\2\2\u00ab\u00ac\7\60\2\2"+
+		"\u00ac\u00ad\5(\25\2\u00ad\u00ae\7*\2\2\u00ae\35\3\2\2\2\u00af\u00b0\7"+
+		"\13\2\2\u00b0\u00b4\5\"\22\2\u00b1\u00b2\7\f\2\2\u00b2\u00b3\7\13\2\2"+
+		"\u00b3\u00b5\5\"\22\2\u00b4\u00b1\3\2\2\2\u00b4\u00b5\3\2\2\2\u00b5\u00b8"+
+		"\3\2\2\2\u00b6\u00b7\7\f\2\2\u00b7\u00b9\5$\23\2\u00b8\u00b6\3\2\2\2\u00b8"+
+		"\u00b9\3\2\2\2\u00b9\37\3\2\2\2\u00ba\u00bb\7\r\2\2\u00bb\u00bc\5(\25"+
+		"\2\u00bc\u00bd\5$\23\2\u00bd!\3\2\2\2\u00be\u00bf\5(\25\2\u00bf\u00c0"+
+		"\7\n\2\2\u00c0\u00c1\5$\23\2\u00c1#\3\2\2\2\u00c2\u00c3\7.\2\2\u00c3\u00c4"+
+		"\5&\24\2\u00c4\u00c5\7/\2\2\u00c5%\3\2\2\2\u00c6\u00c8\5\b\5\2\u00c7\u00c6"+
+		"\3\2\2\2\u00c8\u00cb\3\2\2\2\u00c9\u00c7\3\2\2\2\u00c9\u00ca\3\2\2\2\u00ca"+
+		"\'\3\2\2\2\u00cb\u00c9\3\2\2\2\u00cc\u00cd\b\25\1\2\u00cd\u00ce\7\31\2"+
+		"\2\u00ce\u00df\5(\25\24\u00cf\u00d0\7\35\2\2\u00d0\u00df\5(\25\23\u00d1"+
+		"\u00df\5\20\t\2\u00d2\u00df\5\f\7\2\u00d3\u00df\5\n\6\2\u00d4\u00df\5"+
+		"\24\13\2\u00d5\u00df\5\26\f\2\u00d6\u00d7\7,\2\2\u00d7\u00d8\5(\25\2\u00d8"+
+		"\u00d9\7-\2\2\u00d9\u00df\3\2\2\2\u00da\u00df\t\3\2\2\u00db\u00df\t\4"+
+		"\2\2\u00dc\u00df\7$\2\2\u00dd\u00df\7)\2\2\u00de\u00cc\3\2\2\2\u00de\u00cf"+
+		"\3\2\2\2\u00de\u00d1\3\2\2\2\u00de\u00d2\3\2\2\2\u00de\u00d3\3\2\2\2\u00de"+
+		"\u00d4\3\2\2\2\u00de\u00d5\3\2\2\2\u00de\u00d6\3\2\2\2\u00de\u00da\3\2"+
+		"\2\2\u00de\u00db\3\2\2\2\u00de\u00dc\3\2\2\2\u00de\u00dd\3\2\2\2\u00df"+
+		"\u00f4\3\2\2\2\u00e0\u00e1\f\22\2\2\u00e1\u00e2\t\5\2\2\u00e2\u00f3\5"+
+		"(\25\23\u00e3\u00e4\f\21\2\2\u00e4\u00e5\t\6\2\2\u00e5\u00f3\5(\25\22"+
+		"\u00e6\u00e7\f\20\2\2\u00e7\u00e8\t\7\2\2\u00e8\u00f3\5(\25\21\u00e9\u00ea"+
+		"\f\17\2\2\u00ea\u00eb\t\b\2\2\u00eb\u00f3\5(\25\20\u00ec\u00ed\f\16\2"+
+		"\2\u00ed\u00ee\7\21\2\2\u00ee\u00f3\5(\25\17\u00ef\u00f0\f\r\2\2\u00f0"+
+		"\u00f1\7\20\2\2\u00f1\u00f3\5(\25\16\u00f2\u00e0\3\2\2\2\u00f2\u00e3\3"+
+		"\2\2\2\u00f2\u00e6\3\2\2\2\u00f2\u00e9\3\2\2\2\u00f2\u00ec\3\2\2\2\u00f2"+
+		"\u00ef\3\2\2\2\u00f3\u00f6\3\2\2\2\u00f4\u00f2\3\2\2\2\u00f4\u00f5\3\2"+
+		"\2\2\u00f5)\3\2\2\2\u00f6\u00f4\3\2\2\2\u00f7\u00f8\3\2\2\2\u00f8+\3\2"+
+		"\2\2\30\66=GKPT_blux\u0081\u008c\u0098\u009e\u00a6\u00b4\u00b8\u00c9\u00de"+
+		"\u00f2\u00f4";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

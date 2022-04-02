@@ -81,7 +81,7 @@ assignment:
     ;
 
 if_statement:
-        IF condition_block (ELSE statement_block)?
+        IF condition_block (ELSE IF condition_block)? (ELSE statement_block)?
     ;
 
 while_statement:
@@ -115,15 +115,15 @@ expression:
     |   function_call                                       #ExFunctionCall
     |   console_scan_string                                 #ExConsoleScanString
     |   console_scan_int                                    #ExConsoleScanInt
-    |   atom                                                #ExAtom
+        |     '(' expression ')'        #ExPar
+        |   (INT | FLOAT)               #AtomNumber
+        |   (TRUE | FALSE)              #AtomBoolean
+        |   ID                          #AtomId
+        |   STRING                      #AtomString
  ;
 
 atom:
-        '(' expression ')'          #ExPar
-    |   (INT | FLOAT)               #AtomNumber
-    |   (TRUE | FALSE)              #AtomBoolean
-    |   ID                          #AtomId
-    |   STRING                      #AtomString
+
     ;
 
 LIST: 'List';

@@ -270,6 +270,66 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 */
 	void exitExConsoleScanInt(DaemonScriptParser.ExConsoleScanIntContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ExPar}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExPar(DaemonScriptParser.ExParContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExPar}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExPar(DaemonScriptParser.ExParContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AtomId}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtomId(DaemonScriptParser.AtomIdContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AtomId}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtomId(DaemonScriptParser.AtomIdContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AtomString}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtomString(DaemonScriptParser.AtomStringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AtomString}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtomString(DaemonScriptParser.AtomStringContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AtomBoolean}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtomBoolean(DaemonScriptParser.AtomBooleanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AtomBoolean}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtomBoolean(DaemonScriptParser.AtomBooleanContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AtomNumber}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtomNumber(DaemonScriptParser.AtomNumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AtomNumber}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtomNumber(DaemonScriptParser.AtomNumberContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ExEqual}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -342,18 +402,6 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 */
 	void exitExMinus(DaemonScriptParser.ExMinusContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExAtom}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterExAtom(DaemonScriptParser.ExAtomContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExAtom}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitExAtom(DaemonScriptParser.ExAtomContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code ExRelational}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -366,63 +414,13 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 */
 	void exitExRelational(DaemonScriptParser.ExRelationalContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExPar}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
+	 * Enter a parse tree produced by {@link DaemonScriptParser#atom}.
 	 * @param ctx the parse tree
 	 */
-	void enterExPar(DaemonScriptParser.ExParContext ctx);
+	void enterAtom(DaemonScriptParser.AtomContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExPar}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
+	 * Exit a parse tree produced by {@link DaemonScriptParser#atom}.
 	 * @param ctx the parse tree
 	 */
-	void exitExPar(DaemonScriptParser.ExParContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code AtomNumber}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 */
-	void enterAtomNumber(DaemonScriptParser.AtomNumberContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code AtomNumber}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 */
-	void exitAtomNumber(DaemonScriptParser.AtomNumberContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code AtomBoolean}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 */
-	void enterAtomBoolean(DaemonScriptParser.AtomBooleanContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code AtomBoolean}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 */
-	void exitAtomBoolean(DaemonScriptParser.AtomBooleanContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code AtomId}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 */
-	void enterAtomId(DaemonScriptParser.AtomIdContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code AtomId}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 */
-	void exitAtomId(DaemonScriptParser.AtomIdContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code AtomString}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 */
-	void enterAtomString(DaemonScriptParser.AtomStringContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code AtomString}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 */
-	void exitAtomString(DaemonScriptParser.AtomStringContext ctx);
+	void exitAtom(DaemonScriptParser.AtomContext ctx);
 }

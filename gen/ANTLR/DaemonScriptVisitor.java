@@ -167,6 +167,41 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExConsoleScanInt(DaemonScriptParser.ExConsoleScanIntContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ExPar}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExPar(DaemonScriptParser.ExParContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomId}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomId(DaemonScriptParser.AtomIdContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomString}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomString(DaemonScriptParser.AtomStringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomBoolean}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomBoolean(DaemonScriptParser.AtomBooleanContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AtomNumber}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomNumber(DaemonScriptParser.AtomNumberContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ExEqual}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -209,13 +244,6 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExMinus(DaemonScriptParser.ExMinusContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExAtom}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExAtom(DaemonScriptParser.ExAtomContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ExRelational}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -223,38 +251,9 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExRelational(DaemonScriptParser.ExRelationalContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExPar}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
+	 * Visit a parse tree produced by {@link DaemonScriptParser#atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExPar(DaemonScriptParser.ExParContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code AtomNumber}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAtomNumber(DaemonScriptParser.AtomNumberContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code AtomBoolean}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAtomBoolean(DaemonScriptParser.AtomBooleanContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code AtomId}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAtomId(DaemonScriptParser.AtomIdContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code AtomString}
-	 * labeled alternative in {@link DaemonScriptParser#atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAtomString(DaemonScriptParser.AtomStringContext ctx);
+	T visitAtom(DaemonScriptParser.AtomContext ctx);
 }

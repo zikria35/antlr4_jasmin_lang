@@ -97,7 +97,9 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
 
     @Override
     public Void visitAtomString(DaemonScriptParser.AtomStringContext ctx) {
-        jasminCode.add( "ldc " + ctx.STRING().getText() );
+        String value = ctx.STRING().getText();
+        value = value.substring(1, value.length()-1);
+        jasminCode.add( "ldc \"" + value + "\"");
         return null;
     }
 
