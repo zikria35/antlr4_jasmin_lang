@@ -73,7 +73,7 @@ declaration:
             |   TEXT
             |   BOOLEAN
             |   LIST
-            ) ID (EQUALS expression)? SEMICOLON
+            ) ID SEMICOLON
     ;
 
 assignment:

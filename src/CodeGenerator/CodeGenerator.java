@@ -27,7 +27,6 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     @Override
     public Void visitAssignment(DaemonScriptParser.AssignmentContext ctx) {
         visit( ctx.expression() );
-
         Symbol s = symbols.get(ctx);
         if( s.getType() == DataType.INT )
             jasminCode.add("istore " + s.getLocalSlot());
