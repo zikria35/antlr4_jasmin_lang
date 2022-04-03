@@ -100,7 +100,7 @@ expression:
     |   expression op=(PLUS | MINUS) expression             #ExAdditive
 
     |   IF PARANTHESE_START expression op=(LTEQ | GTEQ | LT | GT | EQ | NEQ) expression PARANTHESE_END
-    THEN  trueVal=statement_block  ELSE  falseVal=statement_block  #ExRelational
+    THEN  trueVal=statement_block  (ELSE  falseVal=statement_block)?  #ExRelational
 
     //TODO add Visitors CodeGenerator
     |   expression AND expression                           #ExAnd

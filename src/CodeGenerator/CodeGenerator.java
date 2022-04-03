@@ -121,7 +121,9 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
             default:    break;
         }
 
-        visit(ctx.falseVal);
+        if (ctx.falseVal != null){
+            visit(ctx.falseVal);
+        }
         jasminCode.add("goto " + endLabel);
         jasminCode.add(trueLabel + ":");
         visit(ctx.trueVal);
