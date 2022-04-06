@@ -20,8 +20,8 @@ statement:
     |   declaration_array
     |   assignment
     |   console_print
-    //|   if_statement
     |   while_statement
+    |   if_statement
     ;
 
 function_call:
@@ -88,8 +88,13 @@ statement_block:
         BRACKET_START block BRACKET_END
     ;
 
+if_statement:
+    IF PARANTHESE_START expression PARANTHESE_END THEN  trueVal=statement_block  (ELSE  falseVal=statement_block)?
+    ;
+
 block:
         statement*
+        ('return' ID SEMICOLON)?
     ;
 
 //expressions
@@ -98,9 +103,7 @@ expression:
     |   NOT expression                                      #ExNot
     |   expression op=(MULT | DIV | MOD) expression         #ExMultiply
     |   expression op=(PLUS | MINUS) expression             #ExAdditive
-
-    |   IF PARANTHESE_START expression op=(LTEQ | GTEQ | LT | GT | EQ | NEQ) expression PARANTHESE_END
-    THEN  trueVal=statement_block  (ELSE  falseVal=statement_block)?  #ExRelational
+    |   expression op=(LTEQ | GTEQ | LT | GT | EQ | NEQ) expression #ExRelational
 
     //TODO add Visitors CodeGenerator
     |   expression AND expression                           #ExAnd

@@ -1,4 +1,4 @@
-// Generated from C:/Users/Zikiria/Desktop/School Saxion/antlr4_jasmin_lang/src/ANTLR\DaemonScript.g4 by ANTLR 4.9.2
+// Generated from C:/Users/zikri/Desktop/School Saxion/compilers and operatingsystems/final/antlr4_jasmin_lang/src/ANTLR\DaemonScript.g4 by ANTLR 4.9.2
 package ANTLR;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -167,6 +167,16 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStatement_block(DaemonScriptParser.Statement_blockContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DaemonScriptParser#if_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf_statement(DaemonScriptParser.If_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DaemonScriptParser#if_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf_statement(DaemonScriptParser.If_statementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DaemonScriptParser#block}.
 	 * @param ctx the parse tree

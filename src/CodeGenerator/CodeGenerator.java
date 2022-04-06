@@ -109,7 +109,6 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         numTernary++;
 
         String trueLabel = ("ternary" + numTernary);
-        String endLabel = ("ternaryEnd" + numTernary);
 
         switch ( ctx.op.getText() ) {
             case "<=":  jasminCode.add("if_icmple " + trueLabel); break;
@@ -121,9 +120,19 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
             default:    break;
         }
 
+        return null;
+    }
+
+    public Void visitIf_statement(DaemonScriptParser.If_statementContext ctx) {
+        visit(ctx.expression());
+
+        String trueLabel = ("ternary" + numTernary);
+        String endLabel = ("ternaryEnd" + numTernary);
+
         if (ctx.falseVal != null){
             visit(ctx.falseVal);
         }
+
         jasminCode.add("goto " + endLabel);
         jasminCode.add(trueLabel + ":");
         visit(ctx.trueVal);

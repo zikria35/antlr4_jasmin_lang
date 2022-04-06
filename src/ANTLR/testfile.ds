@@ -1,5 +1,7 @@
 Main[
-   if(1==1)then[
-    console.print(1*6+2);
-   ]
+    if(1==1) then[
+        console.print({true!});
+    ] else [
+        console.print({false!});
+    ]
 ]
