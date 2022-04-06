@@ -57,7 +57,7 @@ console_scan_string:
     ;
 
 console_scan_int:
-        CONSOLE POINT SCANINT PARANTHESE_START PARANTHESE_END SEMICOLON
+        CONSOLE POINT SCANINT PARANTHESE_START PARANTHESE_END SEMICOLON?
     ;
 
 declaration_array:
@@ -162,8 +162,8 @@ NULL: 'null';
 
 CONSOLE: 'console';
 PRINT: 'print';
-SCANINT: 'scanInt';
-SCANSTRING: 'scanString';
+SCANINT: 'scanNumber';
+SCANSTRING: 'scanText';
 
 POINT: '.';
 ID: [a-zA-Z_] [a-zA-Z_0-9]*;
