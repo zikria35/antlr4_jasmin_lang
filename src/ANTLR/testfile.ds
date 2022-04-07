@@ -1,7 +1,7 @@
 Main[
-    if(1==1 && 2 == 2 && 3==3) then[
-        console.print({true!});
-    ] else [
-        console.print({false!});
-    ]
+    Number firstNumber;
+    firstNumber = 55;
+    Text inputNumber;
+    inputNumber = console.scanText();
+    console.print(inputNumber);
 ]

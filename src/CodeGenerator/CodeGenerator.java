@@ -10,6 +10,7 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     private JasminBytecode jasminCode;
     private int numTernary = 0;
 
+
     /**
      * Constructs a code generator.
      *
@@ -138,6 +139,7 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         return null;
     }
 
+    @Override
     public Void visitIf_statement(DaemonScriptParser.If_statementContext ctx) {
         visit(ctx.expression());
 
@@ -157,6 +159,7 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         return null;
     }
 
+    @Override
     public Void visitExAnd(DaemonScriptParser.ExAndContext ctx) {
         visit(ctx.expression(0));
         numTernary--;
@@ -165,11 +168,26 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         return null;
     }
 
+    @Override
     public Void visitExOr(DaemonScriptParser.ExOrContext ctx) {
         visit(ctx.expression(0));
         numTernary--;
         visit(ctx.expression(1));
 
+        return null;
+    }
+
+    @Override
+    public Void visitExConsoleScanString(DaemonScriptParser.ExConsoleScanStringContext ctx) {
+        jasminCode.add("getstatic testfile/scanner Ljava/util/Scanner;");
+        jasminCode.add("invokevirtual java/util/Scanner/nextLine()Ljava/lang/String;");
+        return null;
+    }
+
+    @Override
+    public Void visitExConsoleScanInt(DaemonScriptParser.ExConsoleScanIntContext ctx) {
+        jasminCode.add("getstatic testfile/scanner Ljava/util/Scanner;");
+        jasminCode.add("invokevirtual java/util/Scanner/nextInt()I");
         return null;
     }
 }

@@ -106,13 +106,14 @@ expression:
     |   expression op=(LTEQ | GTEQ | LT | GT | EQ | NEQ) expression #ExRelational
     |   expression AND expression                           #ExAnd
     |   expression OR expression                            #ExOr
+    |   console_scan_string                                 #ExConsoleScanString
+    |   console_scan_int                                    #ExConsoleScanInt
 
-    //TODO add Visitors CodeGenerator
+        //TODO add Visitors CodeGenerator
     |   array                                               #ExArray
     |   function_declaration                                #ExFunctionDeclaration
     |   function_call                                       #ExFunctionCall
-    |   console_scan_string                                 #ExConsoleScanString
-    |   console_scan_int                                    #ExConsoleScanInt
+
         |     '(' expression ')'        #ExPar
         |   (INT | FLOAT)               #AtomNumber
         |   (TRUE | FALSE)              #AtomBoolean

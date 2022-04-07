@@ -129,6 +129,8 @@ public class Compiler {
         jasminBytecode.add(".super java/lang/Object");
         jasminBytecode.add("");
 
+        jasminBytecode.add(".field public static scanner Ljava/util/Scanner;");
+
         // Main method
         jasminBytecode.add(".method public static main([Ljava/lang/String;)V");
         jasminBytecode.add(".limit stack 99");
@@ -141,6 +143,16 @@ public class Compiler {
         jasminBytecode.add("return");
         jasminBytecode.add(".end method");
 
+        jasminBytecode.add(".method static <clinit>()V");
+        jasminBytecode.add(".limit stack 3");
+        jasminBytecode.add(".limit locals 0");
+        jasminBytecode.add("new java/util/Scanner");
+        jasminBytecode.add("dup");
+        jasminBytecode.add("getstatic java/lang/System/in Ljava/io/InputStream;");
+        jasminBytecode.add("invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V");
+        jasminBytecode.add("putstatic " + className + "/scanner Ljava/util/Scanner;");
+        jasminBytecode.add("return");
+        jasminBytecode.add(".end method");
         return jasminBytecode;
     }
 

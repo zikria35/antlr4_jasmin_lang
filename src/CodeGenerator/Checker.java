@@ -88,6 +88,15 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
             throw new CompilerException("Undefined variable in assignment: " + varName);
 
         DataType expressionType = visit(ctx.expression());
+        if (expressionType == null) {
+            if (ctx.expression().getRuleContext().getClass().equals(DaemonScriptParser.ExConsoleScanIntContext.class)){
+                //Int Scanner
+                expressionType = DataType.INT;
+            } else {
+                //String Scanner
+                expressionType = DataType.STRING;
+            }
+        }
         if( s.getType() != expressionType )
             throw new CompilerException("Assignment type is not correct");
 
