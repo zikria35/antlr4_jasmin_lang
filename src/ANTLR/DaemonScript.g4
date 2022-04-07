@@ -104,10 +104,10 @@ expression:
     |   expression op=(MULT | DIV | MOD) expression         #ExMultiply
     |   expression op=(PLUS | MINUS) expression             #ExAdditive
     |   expression op=(LTEQ | GTEQ | LT | GT | EQ | NEQ) expression #ExRelational
-
-    //TODO add Visitors CodeGenerator
     |   expression AND expression                           #ExAnd
     |   expression OR expression                            #ExOr
+
+    //TODO add Visitors CodeGenerator
     |   array                                               #ExArray
     |   function_declaration                                #ExFunctionDeclaration
     |   function_call                                       #ExFunctionCall
