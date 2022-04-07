@@ -131,17 +131,12 @@ public class Compiler {
 
         jasminBytecode.add(".field public static scanner Ljava/util/Scanner;");
 
-        // Main method
-        jasminBytecode.add(".method public static main([Ljava/lang/String;)V");
-        jasminBytecode.add(".limit stack 99");
-        jasminBytecode.add(".limit locals 99");
-        jasminBytecode.add("");
+
 
         CodeGenerator codeGenerator = new CodeGenerator( jasminBytecode, types, symbols );
         codeGenerator.visit(parseTree);
 
-        jasminBytecode.add("return");
-        jasminBytecode.add(".end method");
+
 
         jasminBytecode.add(".method static <clinit>()V");
         jasminBytecode.add(".limit stack 3");

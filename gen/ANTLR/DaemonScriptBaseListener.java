@@ -52,6 +52,18 @@ public class DaemonScriptBaseListener implements DaemonScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunctions(DaemonScriptParser.FunctionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctions(DaemonScriptParser.FunctionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStatement(DaemonScriptParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -268,18 +280,6 @@ public class DaemonScriptBaseListener implements DaemonScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExFunctionDeclaration(DaemonScriptParser.ExFunctionDeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExFunctionDeclaration(DaemonScriptParser.ExFunctionDeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterExAnd(DaemonScriptParser.ExAndContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -359,18 +359,6 @@ public class DaemonScriptBaseListener implements DaemonScriptListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAtomNumber(DaemonScriptParser.AtomNumberContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExFunctionCall(DaemonScriptParser.ExFunctionCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExFunctionCall(DaemonScriptParser.ExFunctionCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

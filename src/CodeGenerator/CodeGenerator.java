@@ -4,6 +4,9 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import ANTLR.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     private ParseTreeProperty<DataType> types;
     private ParseTreeProperty<Symbol> symbols;
@@ -23,6 +26,37 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         this.jasminCode = jasminCode;
         this.types = types;
         this.symbols = symbols;
+    }
+
+    @Override
+    public Void visitMain(DaemonScriptParser.MainContext ctx) {
+        // Main method
+        jasminCode.add(".method public static main([Ljava/lang/String;)V");
+        jasminCode.add(".limit stack 99");
+        jasminCode.add(".limit locals 99");
+        jasminCode.add("");
+
+        List<DaemonScriptParser.StatementContext> statements = ctx.statement();
+
+        for (DaemonScriptParser.StatementContext statement : statements) {
+            visit(statement);
+        }
+
+        jasminCode.add("return");
+        jasminCode.add(".end method");
+        return null;
+    }
+
+    @Override
+    public Void visitFunctions(DaemonScriptParser.FunctionsContext ctx) {
+        //Functions
+        List<DaemonScriptParser.StatementContext> statements = ctx.statement();
+
+        for (DaemonScriptParser.StatementContext statement : statements) {
+            visit(statement);
+        }
+
+        return null;
     }
 
     @Override
@@ -188,6 +222,18 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     public Void visitExConsoleScanInt(DaemonScriptParser.ExConsoleScanIntContext ctx) {
         jasminCode.add("getstatic testfile/scanner Ljava/util/Scanner;");
         jasminCode.add("invokevirtual java/util/Scanner/nextInt()I");
+        return null;
+    }
+
+    @Override
+    public Void visitFunction_declaration(DaemonScriptParser.Function_declarationContext ctx) {
+
+
+        return null;
+    }
+
+    @Override
+    public Void visitFunction_call(DaemonScriptParser.Function_callContext ctx) {
         return null;
     }
 }

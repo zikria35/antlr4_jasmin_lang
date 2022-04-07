@@ -3,13 +3,15 @@ grammar DaemonScript;
 app: program;
 
 program:
-        main EOF
+        main functions EOF
     ;
 
 main:
-        'Main'
-        '[' statement* ']'
-        statement*
+        MAIN BRACKET_START statement* BRACKET_END
+    ;
+
+functions:
+      statement*
     ;
 
 
@@ -22,6 +24,8 @@ statement:
     |   console_print
     |   while_statement
     |   if_statement
+    |   function_call
+    |   function_declaration
     ;
 
 function_call:
@@ -77,7 +81,7 @@ declaration:
     ;
 
 assignment:
-        ID EQUALS expression SEMICOLON
+        ID EQUALS (expression | function_call) SEMICOLON
     ;
 
 while_statement:
@@ -111,8 +115,6 @@ expression:
 
         //TODO add Visitors CodeGenerator
     |   array                                               #ExArray
-    |   function_declaration                                #ExFunctionDeclaration
-    |   function_call                                       #ExFunctionCall
 
         |     '(' expression ')'        #ExPar
         |   (INT | FLOAT)               #AtomNumber
@@ -125,6 +127,8 @@ LIST: 'List';
 BOOLEAN: 'Boolean';
 TEXT: 'Text';
 NUMBER: 'Number';
+
+MAIN: 'Main';
 
 OBJ_TYPE:(
         NUMBER

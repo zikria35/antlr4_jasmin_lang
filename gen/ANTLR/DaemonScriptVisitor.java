@@ -29,6 +29,12 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMain(DaemonScriptParser.MainContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link DaemonScriptParser#functions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctions(DaemonScriptParser.FunctionsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DaemonScriptParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -140,13 +146,6 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExMultiply(DaemonScriptParser.ExMultiplyContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExFunctionDeclaration}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExFunctionDeclaration(DaemonScriptParser.ExFunctionDeclarationContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ExAnd}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -195,13 +194,6 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAtomNumber(DaemonScriptParser.AtomNumberContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExFunctionCall}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExFunctionCall(DaemonScriptParser.ExFunctionCallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ExOr}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.

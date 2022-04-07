@@ -38,6 +38,16 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 */
 	void exitMain(DaemonScriptParser.MainContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link DaemonScriptParser#functions}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctions(DaemonScriptParser.FunctionsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DaemonScriptParser#functions}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctions(DaemonScriptParser.FunctionsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link DaemonScriptParser#statement}.
 	 * @param ctx the parse tree
 	 */
@@ -224,18 +234,6 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 */
 	void exitExMultiply(DaemonScriptParser.ExMultiplyContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExFunctionDeclaration}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterExFunctionDeclaration(DaemonScriptParser.ExFunctionDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExFunctionDeclaration}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitExFunctionDeclaration(DaemonScriptParser.ExFunctionDeclarationContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code ExAnd}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.
 	 * @param ctx the parse tree
@@ -319,18 +317,6 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAtomNumber(DaemonScriptParser.AtomNumberContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ExFunctionCall}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterExFunctionCall(DaemonScriptParser.ExFunctionCallContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExFunctionCall}
-	 * labeled alternative in {@link DaemonScriptParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitExFunctionCall(DaemonScriptParser.ExFunctionCallContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ExOr}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.
