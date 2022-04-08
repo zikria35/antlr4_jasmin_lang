@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import ANTLR.*;
+import org.w3c.dom.Text;
 
 public class Checker extends DaemonScriptBaseVisitor<DataType>{
     private ParseTreeProperty<DataType> types;
@@ -57,19 +58,25 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
         return addType(ctx, leftType);
     }
 
+//    @Override
+//    public DataType visitFunction_declaration(DaemonScriptParser.Function_declarationContext ctx) {
+//        currentScope = currentScope.openScope();
+//        numLocals = 0;
+//        visitChildren(ctx);
+//        currentScope = currentScope.closeScope();
+//        return null;
+//    }
+
     @Override
     public DataType visitDeclaration(DaemonScriptParser.DeclarationContext ctx) {
         String varName = ctx.ID().getText();
-        DataType varType;
-        if (ctx.NUMBER() != null) {
-            varType = DataType.INT;
-        } else if ( ctx.BOOLEAN() != null ) {
-            varType = DataType.BOOLEAN;
-        } else if ( ctx.LIST() != null ) {
-            varType = DataType.LIST;
-        } else {
-            varType = DataType.STRING;
-        }
+        DataType varType = switch (ctx.OBJ_TYPE().toString()) {
+            case "Number" -> DataType.INT;
+            case "Boolean" -> DataType.BOOLEAN;
+            case "List" -> DataType.LIST;
+            case "Void" -> DataType.VOID;
+            default -> DataType.STRING;
+        };
         numLocals++;
 
         Symbol s = currentScope.lookupVariable(varName);
@@ -79,6 +86,8 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
         currentScope.declareVariable(new Symbol(varName, varType, numLocals));
         return null;
     }
+
+
 
     @Override
     public DataType visitAssignment(DaemonScriptParser.AssignmentContext ctx) {

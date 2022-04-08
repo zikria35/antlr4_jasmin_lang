@@ -3,8 +3,10 @@ package CodeGenerator;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import ANTLR.*;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
@@ -225,10 +227,83 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         return null;
     }
 
+    private String getArguments(List<TerminalNode> objTypes, List<TerminalNode> objIds) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < objIds.size(); i++) {
+            switch (objTypes.get(i).toString()) {
+                case "Number":
+                    stringBuilder.append("I");
+                    break;
+                case "Boolean":
+                    stringBuilder.append("Z");
+                    break;
+                case "List":
+                    stringBuilder.append("[Ljava/lang/Object;");
+                    break;
+                case "Text":
+                    stringBuilder.append("Ljava/lang/String;");
+                    break;
+                case "Void":
+                    //TODO add void function
+                    break;
+                default:
+                    throw new CompilerException("Unknown type in args");
+            }
+        }
+        return stringBuilder.toString();
+    }
+
     @Override
     public Void visitFunction_declaration(DaemonScriptParser.Function_declarationContext ctx) {
 
+        List<DaemonScriptParser.DeclarationContext> declarations = ctx.declaration();
 
+        List<TerminalNode> objTypes = new ArrayList<>();
+        List<TerminalNode> objIds = new ArrayList<>();
+
+        for (int i = 0; i < declarations.size(); i++) {
+            objTypes.add(declarations.get(i).OBJ_TYPE());
+            objIds.add(declarations.get(i).ID());
+        }
+
+        //Return type switch
+        switch (ctx.OBJ_TYPE().toString()) {
+            case "Number":
+                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")I");
+                break;
+            case "Boolean":
+                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")Z");
+                break;
+            case "List":
+                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")[Ljava/lang/Object;");
+                break;
+            case "Text":
+                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")Ljava/lang/String;");
+                break;
+            case "Void":
+                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")V");
+                break;
+            default:
+                throw new CompilerException("Unknown return type");
+        }
+        jasminCode.add(".limit stack 99");
+        jasminCode.add(".limit locals 99");
+
+        //code
+        visit(ctx.statement_block());
+        if (ctx.statement_block().block().return_statement() == null) {
+            //void function
+            jasminCode.add("return");
+        }
+        jasminCode.add(".end method");
+
+        return null;
+    }
+
+    @Override
+    public Void visitReturn_statement(DaemonScriptParser.Return_statementContext ctx) {
+        visit(ctx.expression());
+        System.out.println(ctx.expression().getText());
         return null;
     }
 

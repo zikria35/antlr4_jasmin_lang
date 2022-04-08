@@ -58,26 +58,6 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 */
 	void exitStatement(DaemonScriptParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DaemonScriptParser#function_call}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunction_call(DaemonScriptParser.Function_callContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DaemonScriptParser#function_call}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunction_call(DaemonScriptParser.Function_callContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link DaemonScriptParser#function_declaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunction_declaration(DaemonScriptParser.Function_declarationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DaemonScriptParser#function_declaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunction_declaration(DaemonScriptParser.Function_declarationContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link DaemonScriptParser#arguments}.
 	 * @param ctx the parse tree
 	 */
@@ -147,6 +127,36 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDeclaration(DaemonScriptParser.DeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DaemonScriptParser#return_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturn_statement(DaemonScriptParser.Return_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DaemonScriptParser#return_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturn_statement(DaemonScriptParser.Return_statementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DaemonScriptParser#function_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_call(DaemonScriptParser.Function_callContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DaemonScriptParser#function_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_call(DaemonScriptParser.Function_callContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link DaemonScriptParser#function_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_declaration(DaemonScriptParser.Function_declarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link DaemonScriptParser#function_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_declaration(DaemonScriptParser.Function_declarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link DaemonScriptParser#assignment}.
 	 * @param ctx the parse tree
@@ -329,6 +339,18 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExOr(DaemonScriptParser.ExOrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExFunction_Call}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExFunction_Call(DaemonScriptParser.ExFunction_CallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExFunction_Call}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExFunction_Call(DaemonScriptParser.ExFunction_CallContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ExConsoleScanString}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.

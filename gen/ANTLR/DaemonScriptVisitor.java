@@ -41,18 +41,6 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(DaemonScriptParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DaemonScriptParser#function_call}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunction_call(DaemonScriptParser.Function_callContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link DaemonScriptParser#function_declaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunction_declaration(DaemonScriptParser.Function_declarationContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link DaemonScriptParser#arguments}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -94,6 +82,24 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDeclaration(DaemonScriptParser.DeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DaemonScriptParser#return_statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturn_statement(DaemonScriptParser.Return_statementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DaemonScriptParser#function_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_call(DaemonScriptParser.Function_callContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DaemonScriptParser#function_declaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_declaration(DaemonScriptParser.Function_declarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DaemonScriptParser#assignment}.
 	 * @param ctx the parse tree
@@ -201,6 +207,13 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExOr(DaemonScriptParser.ExOrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExFunction_Call}
+	 * labeled alternative in {@link DaemonScriptParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExFunction_Call(DaemonScriptParser.ExFunction_CallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ExConsoleScanString}
 	 * labeled alternative in {@link DaemonScriptParser#expression}.

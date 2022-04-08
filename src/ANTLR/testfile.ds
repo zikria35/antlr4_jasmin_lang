@@ -1,8 +1,8 @@
 Main[
-    Number firstNumber;
-    firstNumber = 55;
-    Text inputNumber;
-    inputNumber = console.scanText();
-    console.print(inputNumber);
+    Text text;
+    text = {lol};
+    console.print(text);
 ]
-
+Void printText(Text text2)[
+    console.print(text);
+]

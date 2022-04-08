@@ -17,8 +17,7 @@ functions:
 
 //statements
 statement:
-        expression
-    |   declaration
+        declaration
     |   declaration_array
     |   assignment
     |   console_print
@@ -26,23 +25,10 @@ statement:
     |   if_statement
     |   function_call
     |   function_declaration
+    |   return_statement
     ;
 
-function_call:
-        (ID POINT)? ID PARANTHESE_START arguments? PARANTHESE_END (SEMICOLON)?
-    ;
 
-function_declaration:
-        ID PARANTHESE_START ((       NUMBER
-                                 |   TEXT
-                                 |   BOOLEAN
-                                 |   LIST
-                                 ) ID (COMMA (       NUMBER
-                                                 |   TEXT
-                                                 |   BOOLEAN
-                                                 |   LIST
-                                                 ) ID)*)? PARANTHESE_END statement_block
-    ;
 
 arguments:
         expression ( COMMA expression )*
@@ -65,24 +51,30 @@ console_scan_int:
     ;
 
 declaration_array:
-        LIST LT ((       NUMBER
-                     |   TEXT
-                     |   BOOLEAN
-                     |   LIST
-                     ))? GT ID (EQUALS expression)? SEMICOLON
+        LIST LT (OBJ_TYPE)? GT ID (EQUALS expression)? SEMICOLON
     ;
 
 declaration:
-        (       NUMBER
-            |   TEXT
-            |   BOOLEAN
-            |   LIST
-            ) ID SEMICOLON
+        OBJ_TYPE ID SEMICOLON?
+    ;
+
+return_statement:
+        RETURN expression SEMICOLON
+    ;
+
+function_call:
+        (ID POINT)? ID PARANTHESE_START arguments? PARANTHESE_END (SEMICOLON)?
+    ;
+
+function_declaration:
+        OBJ_TYPE ID PARANTHESE_START ( declaration (COMMA declaration)*)? PARANTHESE_END statement_block
     ;
 
 assignment:
         ID EQUALS (expression | function_call) SEMICOLON
     ;
+
+
 
 while_statement:
         WHILE expression statement_block
@@ -98,7 +90,7 @@ if_statement:
 
 block:
         statement*
-        ('return' ID SEMICOLON)?
+        return_statement?
     ;
 
 //expressions
@@ -112,6 +104,7 @@ expression:
     |   expression OR expression                            #ExOr
     |   console_scan_string                                 #ExConsoleScanString
     |   console_scan_int                                    #ExConsoleScanInt
+    |   function_call                                       #ExFunction_Call
 
         //TODO add Visitors CodeGenerator
     |   array                                               #ExArray
@@ -123,20 +116,25 @@ expression:
         |   STRING                      #AtomString
  ;
 
-LIST: 'List';
-BOOLEAN: 'Boolean';
-TEXT: 'Text';
-NUMBER: 'Number';
 
 MAIN: 'Main';
+
+RETURN: 'return';
 
 OBJ_TYPE:(
         NUMBER
     |   TEXT
     |   BOOLEAN
     |   LIST
+    |   VOID
     )
     ;
+    LIST: 'List';
+    BOOLEAN: 'Boolean';
+    TEXT: 'Text';
+    NUMBER: 'Number';
+    VOID: 'Void';
+
 ARGS: 'args';
 THEN: 'then';
 
