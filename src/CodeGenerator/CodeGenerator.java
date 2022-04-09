@@ -344,7 +344,6 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         visitChildren(ctx);
 
         String functionId = ctx.ID(0).getText();
-        System.out.println("invokestatic testfile/" + functionId + "(" + argsBuilder + ")" + functions.get(functionId));
 
         jasminCode.add("invokestatic testfile/" + functionId + "(" + argsBuilder + ")" + functions.get(functionId));
         return null;
