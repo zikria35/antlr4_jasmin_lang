@@ -6,16 +6,28 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import ANTLR.*;
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+
 public class Checker extends DaemonScriptBaseVisitor<DataType>{
     private ParseTreeProperty<DataType> types;
     private ParseTreeProperty<Symbol> symbols;
     private Scope currentScope = new Scope();
     private int numLocals = 0;
+  //  private HashMap<String, String> functions;
 
     public Checker( ParseTreeProperty<DataType> types,
                     ParseTreeProperty<Symbol> symbols ) {
         this.types = types;
         this.symbols = symbols;
+    }
+
+    @Override
+    public DataType visitMain(DaemonScriptParser.MainContext ctx) {
+        currentScope = currentScope.openScope();
+        numLocals = 0;
+        visitChildren(ctx);
+        currentScope = currentScope.closeScope();
+        return null;
     }
 
     @Override
@@ -58,14 +70,14 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
         return addType(ctx, leftType);
     }
 
-//    @Override
-//    public DataType visitFunction_declaration(DaemonScriptParser.Function_declarationContext ctx) {
-//        currentScope = currentScope.openScope();
-//        numLocals = 0;
-//        visitChildren(ctx);
-//        currentScope = currentScope.closeScope();
-//        return null;
-//    }
+    @Override
+    public DataType visitFunction_declaration(DaemonScriptParser.Function_declarationContext ctx) {
+        currentScope = currentScope.openScope();
+        numLocals = -1;
+        visitChildren(ctx);
+        currentScope = currentScope.closeScope();
+        return null;
+    }
 
     @Override
     public DataType visitDeclaration(DaemonScriptParser.DeclarationContext ctx) {
@@ -77,6 +89,8 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
             case "Void" -> DataType.VOID;
             default -> DataType.STRING;
         };
+
+        //Check if declaration is inside of a Function declaration
         numLocals++;
 
         Symbol s = currentScope.lookupVariable(varName);
@@ -106,8 +120,9 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
                 expressionType = DataType.STRING;
             }
         }
-        if( s.getType() != expressionType )
+        if( s.getType() != expressionType && !ctx.expression().getRuleContext().getPayload().getClass().equals(DaemonScriptParser.ExFunction_CallContext.class)){
             throw new CompilerException("Assignment type is not correct");
+        }
 
         symbols.put(ctx, s);
         return null;

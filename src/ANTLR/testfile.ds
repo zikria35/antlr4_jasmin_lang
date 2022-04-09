@@ -1,8 +1,9 @@
 Main[
-    Text text;
-    text = {lol};
-    console.print(text);
+    Number number;
+    number = giveNumber(1);
+    console.print(number);
 ]
-Void printText(Text text2)[
-    console.print(text);
+
+Number giveNumber(Number num1)[
+    return num1;
 ]

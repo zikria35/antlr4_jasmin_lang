@@ -1,5 +1,6 @@
 package CodeGenerator;
 
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import ANTLR.*;
@@ -14,6 +15,7 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     private ParseTreeProperty<Symbol> symbols;
     private JasminBytecode jasminCode;
     private int numTernary = 0;
+    private HashMap<String, String> functions;
 
 
     /**
@@ -28,6 +30,7 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         this.jasminCode = jasminCode;
         this.types = types;
         this.symbols = symbols;
+        functions = new HashMap<>();
     }
 
     @Override
@@ -243,9 +246,6 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
                 case "Text":
                     stringBuilder.append("Ljava/lang/String;");
                     break;
-                case "Void":
-                    //TODO add void function
-                    break;
                 default:
                     throw new CompilerException("Unknown type in args");
             }
@@ -258,6 +258,8 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
 
         List<DaemonScriptParser.DeclarationContext> declarations = ctx.declaration();
 
+        String returnType = ctx.OBJ_TYPE().toString();
+
         List<TerminalNode> objTypes = new ArrayList<>();
         List<TerminalNode> objIds = new ArrayList<>();
 
@@ -266,22 +268,33 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
             objIds.add(declarations.get(i).ID());
         }
 
+        String integerLit = "I";
+        String booleanLit = "Z";
+        String listLit = "[Ljava/lang/Object;";
+        String stringLit = "Ljava/lang/String;";
+        String voidLit = "V";
+
         //Return type switch
-        switch (ctx.OBJ_TYPE().toString()) {
+        switch (returnType) {
             case "Number":
-                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")I");
+                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")"+ integerLit);
+                functions.put(ctx.ID().getText(), integerLit);
                 break;
             case "Boolean":
-                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")Z");
+                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")" + booleanLit);
+                functions.put(ctx.ID().getText(), booleanLit);
                 break;
             case "List":
-                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")[Ljava/lang/Object;");
+                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")" + listLit);
+                functions.put(ctx.ID().getText(), listLit);
                 break;
             case "Text":
-                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")Ljava/lang/String;");
+                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")" + stringLit);
+                functions.put(ctx.ID().getText(), stringLit);
                 break;
             case "Void":
-                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")V");
+                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")" + voidLit);
+                functions.put(ctx.ID().getText(), voidLit);
                 break;
             default:
                 throw new CompilerException("Unknown return type");
@@ -291,9 +304,13 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
 
         //code
         visit(ctx.statement_block());
-        if (ctx.statement_block().block().return_statement() == null) {
+        if (returnType.equals("Number")){
+            jasminCode.add("ireturn");
+        }else if(returnType.equals("Void")){
             //void function
             jasminCode.add("return");
+        }else {
+            jasminCode.add("areturn");
         }
         jasminCode.add(".end method");
 
@@ -303,12 +320,33 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     @Override
     public Void visitReturn_statement(DaemonScriptParser.Return_statementContext ctx) {
         visit(ctx.expression());
-        System.out.println(ctx.expression().getText());
         return null;
     }
 
     @Override
     public Void visitFunction_call(DaemonScriptParser.Function_callContext ctx) {
+        StringBuilder argsBuilder = new StringBuilder();
+        if (ctx.arguments() != null){
+            List<DaemonScriptParser.ExpressionContext> args = ctx.arguments().expression();
+            for (DaemonScriptParser.ExpressionContext arg : args) {
+                switch (arg.getRuleContext().getClass().getSimpleName()){
+                    case "AtomStringContext":
+                        argsBuilder.append("Ljava/lang/String;");
+                        break;
+                    case "AtomNumberContext":
+                        argsBuilder.append("I");
+                    case "AtomIdContext":
+                        //TODO: get type from given ID
+                        break;
+                }
+            }
+        }
+        visitChildren(ctx);
+
+        String functionId = ctx.ID(0).getText();
+        System.out.println("invokestatic testfile/" + functionId + "(" + argsBuilder + ")" + functions.get(functionId));
+
+        jasminCode.add("invokestatic testfile/" + functionId + "(" + argsBuilder + ")" + functions.get(functionId));
         return null;
     }
 }

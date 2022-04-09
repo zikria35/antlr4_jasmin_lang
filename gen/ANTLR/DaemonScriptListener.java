@@ -18,16 +18,6 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 */
 	void exitApp(DaemonScriptParser.AppContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DaemonScriptParser#program}.
-	 * @param ctx the parse tree
-	 */
-	void enterProgram(DaemonScriptParser.ProgramContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DaemonScriptParser#program}.
-	 * @param ctx the parse tree
-	 */
-	void exitProgram(DaemonScriptParser.ProgramContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link DaemonScriptParser#main}.
 	 * @param ctx the parse tree
 	 */

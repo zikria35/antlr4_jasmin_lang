@@ -134,7 +134,13 @@ public class Compiler {
 
 
         CodeGenerator codeGenerator = new CodeGenerator( jasminBytecode, types, symbols );
-        codeGenerator.visit(parseTree);
+        //Visit functions first
+        System.out.println(parseTree.getChild(0).getClass());
+        System.out.println(parseTree.getChild(1).getClass());
+        codeGenerator.visit(parseTree.getChild(1));
+
+        //Visit Main after
+        codeGenerator.visit(parseTree.getChild(0));
 
 
 

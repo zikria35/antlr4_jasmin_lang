@@ -17,12 +17,6 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitApp(DaemonScriptParser.AppContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DaemonScriptParser#program}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitProgram(DaemonScriptParser.ProgramContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link DaemonScriptParser#main}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

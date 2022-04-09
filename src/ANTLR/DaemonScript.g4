@@ -1,9 +1,7 @@
 grammar DaemonScript;
 
-app: program;
-
-program:
-        main functions EOF
+app:
+         main functions EOF
     ;
 
 main:

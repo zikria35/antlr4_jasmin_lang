@@ -28,18 +28,6 @@ public class DaemonScriptBaseListener implements DaemonScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(DaemonScriptParser.ProgramContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitProgram(DaemonScriptParser.ProgramContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterMain(DaemonScriptParser.MainContext ctx) { }
 	/**
 	 * {@inheritDoc}
