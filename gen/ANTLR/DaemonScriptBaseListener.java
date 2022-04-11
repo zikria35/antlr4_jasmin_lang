@@ -124,18 +124,6 @@ public class DaemonScriptBaseListener implements DaemonScriptListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaration_array(DaemonScriptParser.Declaration_arrayContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDeclaration_array(DaemonScriptParser.Declaration_arrayContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterDeclaration(DaemonScriptParser.DeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}

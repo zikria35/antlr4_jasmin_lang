@@ -17,7 +17,7 @@ public class DaemonScriptParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		MAIN=1, RETURN=2, LIST=3, OBJ_TYPE=4, BOOLEAN=5, TEXT=6, NUMBER=7, VOID=8, 
+		MAIN=1, RETURN=2, OBJ_TYPE=3, LIST=4, BOOLEAN=5, TEXT=6, NUMBER=7, VOID=8, 
 		ARGS=9, THEN=10, IF=11, ELSE=12, WHILE=13, TRUE=14, FALSE=15, OR=16, AND=17, 
 		EQ=18, NEQ=19, GT=20, LT=21, GTEQ=22, LTEQ=23, PLUS=24, MINUS=25, MULT=26, 
 		DIV=27, MOD=28, NOT=29, NULL=30, CONSOLE=31, PRINT=32, SCANINT=33, SCANSTRING=34, 
@@ -28,23 +28,23 @@ public class DaemonScriptParser extends Parser {
 	public static final int
 		RULE_app = 0, RULE_main = 1, RULE_functions = 2, RULE_statement = 3, RULE_arguments = 4, 
 		RULE_array = 5, RULE_console_print = 6, RULE_console_scan_string = 7, 
-		RULE_console_scan_int = 8, RULE_declaration_array = 9, RULE_declaration = 10, 
-		RULE_return_statement = 11, RULE_function_call = 12, RULE_function_declaration = 13, 
-		RULE_assignment = 14, RULE_while_statement = 15, RULE_statement_block = 16, 
-		RULE_if_statement = 17, RULE_block = 18, RULE_expression = 19;
+		RULE_console_scan_int = 8, RULE_declaration = 9, RULE_return_statement = 10, 
+		RULE_function_call = 11, RULE_function_declaration = 12, RULE_assignment = 13, 
+		RULE_while_statement = 14, RULE_statement_block = 15, RULE_if_statement = 16, 
+		RULE_block = 17, RULE_expression = 18;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"app", "main", "functions", "statement", "arguments", "array", "console_print", 
-			"console_scan_string", "console_scan_int", "declaration_array", "declaration", 
-			"return_statement", "function_call", "function_declaration", "assignment", 
-			"while_statement", "statement_block", "if_statement", "block", "expression"
+			"console_scan_string", "console_scan_int", "declaration", "return_statement", 
+			"function_call", "function_declaration", "assignment", "while_statement", 
+			"statement_block", "if_statement", "block", "expression"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'Main'", "'return'", "'List'", null, "'Boolean'", "'Text'", "'Number'", 
+			null, "'Main'", "'return'", null, "'List'", "'Boolean'", "'Text'", "'Number'", 
 			"'Void'", "'args'", "'then'", "'if'", "'else'", "'while'", "'true'", 
 			"'false'", "'||'", "'&&'", "'=='", "'!='", "'>'", "'<'", "'>='", "'<='", 
 			"'+'", "'-'", "'*'", "'/'", "'%'", "'!'", "'null'", "'console'", "'print'", 
@@ -55,7 +55,7 @@ public class DaemonScriptParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "MAIN", "RETURN", "LIST", "OBJ_TYPE", "BOOLEAN", "TEXT", "NUMBER", 
+			null, "MAIN", "RETURN", "OBJ_TYPE", "LIST", "BOOLEAN", "TEXT", "NUMBER", 
 			"VOID", "ARGS", "THEN", "IF", "ELSE", "WHILE", "TRUE", "FALSE", "OR", 
 			"AND", "EQ", "NEQ", "GT", "LT", "GTEQ", "LTEQ", "PLUS", "MINUS", "MULT", 
 			"DIV", "MOD", "NOT", "NULL", "CONSOLE", "PRINT", "SCANINT", "SCANSTRING", 
@@ -148,11 +148,11 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(40);
+			setState(38);
 			main();
-			setState(41);
+			setState(39);
 			functions();
-			setState(42);
+			setState(40);
 			match(EOF);
 			}
 		}
@@ -203,25 +203,25 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(44);
+			setState(42);
 			match(MAIN);
-			setState(45);
+			setState(43);
 			match(BRACKET_START);
-			setState(49);
+			setState(47);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RETURN) | (1L << LIST) | (1L << OBJ_TYPE) | (1L << IF) | (1L << WHILE) | (1L << CONSOLE) | (1L << ID))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RETURN) | (1L << OBJ_TYPE) | (1L << IF) | (1L << WHILE) | (1L << CONSOLE) | (1L << ID))) != 0)) {
 				{
 				{
-				setState(46);
+				setState(44);
 				statement();
 				}
 				}
-				setState(51);
+				setState(49);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(52);
+			setState(50);
 			match(BRACKET_END);
 			}
 		}
@@ -269,17 +269,17 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(57);
+			setState(55);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RETURN) | (1L << LIST) | (1L << OBJ_TYPE) | (1L << IF) | (1L << WHILE) | (1L << CONSOLE) | (1L << ID))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RETURN) | (1L << OBJ_TYPE) | (1L << IF) | (1L << WHILE) | (1L << CONSOLE) | (1L << ID))) != 0)) {
 				{
 				{
-				setState(54);
+				setState(52);
 				statement();
 				}
 				}
-				setState(59);
+				setState(57);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -299,9 +299,6 @@ public class DaemonScriptParser extends Parser {
 	public static class StatementContext extends ParserRuleContext {
 		public DeclarationContext declaration() {
 			return getRuleContext(DeclarationContext.class,0);
-		}
-		public Declaration_arrayContext declaration_array() {
-			return getRuleContext(Declaration_arrayContext.class,0);
 		}
 		public AssignmentContext assignment() {
 			return getRuleContext(AssignmentContext.class,0);
@@ -347,69 +344,62 @@ public class DaemonScriptParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_statement);
 		try {
-			setState(69);
+			setState(66);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(60);
+				setState(58);
 				declaration();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(61);
-				declaration_array();
+				setState(59);
+				assignment();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(62);
-				assignment();
+				setState(60);
+				console_print();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(63);
-				console_print();
+				setState(61);
+				while_statement();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(64);
-				while_statement();
+				setState(62);
+				if_statement();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(65);
-				if_statement();
+				setState(63);
+				function_call();
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(66);
-				function_call();
+				setState(64);
+				function_declaration();
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(67);
-				function_declaration();
-				}
-				break;
-			case 9:
-				enterOuterAlt(_localctx, 9);
-				{
-				setState(68);
+				setState(65);
 				return_statement();
 				}
 				break;
@@ -463,21 +453,21 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(71);
+			setState(68);
 			expression(0);
-			setState(76);
+			setState(73);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(72);
+				setState(69);
 				match(COMMA);
-				setState(73);
+				setState(70);
 				expression(0);
 				}
 				}
-				setState(78);
+				setState(75);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -533,35 +523,35 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(79);
+			setState(76);
 			match(BRACKET_START);
-			setState(88);
+			setState(85);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TRUE) | (1L << FALSE) | (1L << MINUS) | (1L << NOT) | (1L << CONSOLE) | (1L << ID) | (1L << INT) | (1L << FLOAT) | (1L << STRING) | (1L << PARANTHESE_START) | (1L << BRACKET_START))) != 0)) {
 				{
-				setState(80);
+				setState(77);
 				expression(0);
-				setState(85);
+				setState(82);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(81);
+					setState(78);
 					match(COMMA);
-					setState(82);
+					setState(79);
 					expression(0);
 					}
 					}
-					setState(87);
+					setState(84);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 			}
 
-			setState(90);
+			setState(87);
 			match(BRACKET_END);
 			}
 		}
@@ -612,27 +602,27 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(92);
+			setState(89);
 			match(CONSOLE);
-			setState(93);
+			setState(90);
 			match(POINT);
-			setState(94);
+			setState(91);
 			match(PRINT);
-			setState(95);
+			setState(92);
 			match(PARANTHESE_START);
-			setState(97);
+			setState(94);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TRUE) | (1L << FALSE) | (1L << MINUS) | (1L << NOT) | (1L << CONSOLE) | (1L << ID) | (1L << INT) | (1L << FLOAT) | (1L << STRING) | (1L << PARANTHESE_START) | (1L << BRACKET_START))) != 0)) {
 				{
-				setState(96);
+				setState(93);
 				expression(0);
 				}
 			}
 
-			setState(99);
+			setState(96);
 			match(PARANTHESE_END);
-			setState(100);
+			setState(97);
 			match(SEMICOLON);
 			}
 		}
@@ -679,22 +669,22 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(102);
+			setState(99);
 			match(CONSOLE);
-			setState(103);
+			setState(100);
 			match(POINT);
-			setState(104);
+			setState(101);
 			match(SCANSTRING);
-			setState(105);
+			setState(102);
 			match(PARANTHESE_START);
-			setState(106);
+			setState(103);
 			match(PARANTHESE_END);
-			setState(108);
+			setState(105);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				{
-				setState(107);
+				setState(104);
 				match(SEMICOLON);
 				}
 				break;
@@ -744,22 +734,22 @@ public class DaemonScriptParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(110);
+			setState(107);
 			match(CONSOLE);
-			setState(111);
+			setState(108);
 			match(POINT);
-			setState(112);
+			setState(109);
 			match(SCANINT);
-			setState(113);
+			setState(110);
 			match(PARANTHESE_START);
-			setState(114);
+			setState(111);
 			match(PARANTHESE_END);
-			setState(116);
+			setState(113);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 			case 1:
 				{
-				setState(115);
+				setState(112);
 				match(SEMICOLON);
 				}
 				break;
@@ -777,92 +767,15 @@ public class DaemonScriptParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Declaration_arrayContext extends ParserRuleContext {
+	public static class DeclarationContext extends ParserRuleContext {
 		public Token objType;
-		public TerminalNode LIST() { return getToken(DaemonScriptParser.LIST, 0); }
+		public List<TerminalNode> OBJ_TYPE() { return getTokens(DaemonScriptParser.OBJ_TYPE); }
+		public TerminalNode OBJ_TYPE(int i) {
+			return getToken(DaemonScriptParser.OBJ_TYPE, i);
+		}
+		public TerminalNode ID() { return getToken(DaemonScriptParser.ID, 0); }
 		public TerminalNode LT() { return getToken(DaemonScriptParser.LT, 0); }
 		public TerminalNode GT() { return getToken(DaemonScriptParser.GT, 0); }
-		public TerminalNode ID() { return getToken(DaemonScriptParser.ID, 0); }
-		public TerminalNode SEMICOLON() { return getToken(DaemonScriptParser.SEMICOLON, 0); }
-		public TerminalNode EQUALS() { return getToken(DaemonScriptParser.EQUALS, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public TerminalNode OBJ_TYPE() { return getToken(DaemonScriptParser.OBJ_TYPE, 0); }
-		public Declaration_arrayContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_declaration_array; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).enterDeclaration_array(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof DaemonScriptListener ) ((DaemonScriptListener)listener).exitDeclaration_array(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof DaemonScriptVisitor ) return ((DaemonScriptVisitor<? extends T>)visitor).visitDeclaration_array(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final Declaration_arrayContext declaration_array() throws RecognitionException {
-		Declaration_arrayContext _localctx = new Declaration_arrayContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_declaration_array);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(118);
-			match(LIST);
-			setState(119);
-			match(LT);
-			setState(121);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==OBJ_TYPE) {
-				{
-				setState(120);
-				((Declaration_arrayContext)_localctx).objType = match(OBJ_TYPE);
-				}
-			}
-
-			setState(123);
-			match(GT);
-			setState(124);
-			match(ID);
-			setState(127);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==EQUALS) {
-				{
-				setState(125);
-				match(EQUALS);
-				setState(126);
-				expression(0);
-				}
-			}
-
-			setState(129);
-			match(SEMICOLON);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class DeclarationContext extends ParserRuleContext {
-		public TerminalNode OBJ_TYPE() { return getToken(DaemonScriptParser.OBJ_TYPE, 0); }
-		public TerminalNode ID() { return getToken(DaemonScriptParser.ID, 0); }
 		public TerminalNode SEMICOLON() { return getToken(DaemonScriptParser.SEMICOLON, 0); }
 		public DeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -885,21 +798,35 @@ public class DaemonScriptParser extends Parser {
 
 	public final DeclarationContext declaration() throws RecognitionException {
 		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_declaration);
+		enterRule(_localctx, 18, RULE_declaration);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(131);
+			setState(115);
 			match(OBJ_TYPE);
-			setState(132);
+			setState(119);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==LT) {
+				{
+				setState(116);
+				match(LT);
+				setState(117);
+				((DeclarationContext)_localctx).objType = match(OBJ_TYPE);
+				setState(118);
+				match(GT);
+				}
+			}
+
+			setState(121);
 			match(ID);
-			setState(134);
+			setState(123);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==SEMICOLON) {
 				{
-				setState(133);
+				setState(122);
 				match(SEMICOLON);
 				}
 			}
@@ -944,15 +871,15 @@ public class DaemonScriptParser extends Parser {
 
 	public final Return_statementContext return_statement() throws RecognitionException {
 		Return_statementContext _localctx = new Return_statementContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_return_statement);
+		enterRule(_localctx, 20, RULE_return_statement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(136);
+			setState(125);
 			match(RETURN);
-			setState(137);
+			setState(126);
 			expression(0);
-			setState(138);
+			setState(127);
 			match(SEMICOLON);
 			}
 		}
@@ -1000,45 +927,45 @@ public class DaemonScriptParser extends Parser {
 
 	public final Function_callContext function_call() throws RecognitionException {
 		Function_callContext _localctx = new Function_callContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_function_call);
+		enterRule(_localctx, 22, RULE_function_call);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(142);
+			setState(131);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
 			case 1:
 				{
-				setState(140);
+				setState(129);
 				match(ID);
-				setState(141);
+				setState(130);
 				match(POINT);
 				}
 				break;
 			}
-			setState(144);
+			setState(133);
 			match(ID);
-			setState(145);
+			setState(134);
 			match(PARANTHESE_START);
-			setState(147);
+			setState(136);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TRUE) | (1L << FALSE) | (1L << MINUS) | (1L << NOT) | (1L << CONSOLE) | (1L << ID) | (1L << INT) | (1L << FLOAT) | (1L << STRING) | (1L << PARANTHESE_START) | (1L << BRACKET_START))) != 0)) {
 				{
-				setState(146);
+				setState(135);
 				arguments();
 				}
 			}
 
-			setState(149);
+			setState(138);
 			match(PARANTHESE_END);
-			setState(151);
+			setState(140);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
 				{
-				setState(150);
+				setState(139);
 				match(SEMICOLON);
 				}
 				break;
@@ -1095,46 +1022,46 @@ public class DaemonScriptParser extends Parser {
 
 	public final Function_declarationContext function_declaration() throws RecognitionException {
 		Function_declarationContext _localctx = new Function_declarationContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_function_declaration);
+		enterRule(_localctx, 24, RULE_function_declaration);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(153);
+			setState(142);
 			match(OBJ_TYPE);
-			setState(154);
+			setState(143);
 			match(ID);
-			setState(155);
+			setState(144);
 			match(PARANTHESE_START);
-			setState(164);
+			setState(153);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==OBJ_TYPE) {
 				{
-				setState(156);
+				setState(145);
 				declaration();
-				setState(161);
+				setState(150);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(157);
+					setState(146);
 					match(COMMA);
-					setState(158);
+					setState(147);
 					declaration();
 					}
 					}
-					setState(163);
+					setState(152);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 			}
 
-			setState(166);
+			setState(155);
 			match(PARANTHESE_END);
-			setState(167);
+			setState(156);
 			statement_block();
 			}
 		}
@@ -1180,31 +1107,31 @@ public class DaemonScriptParser extends Parser {
 
 	public final AssignmentContext assignment() throws RecognitionException {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_assignment);
+		enterRule(_localctx, 26, RULE_assignment);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(169);
+			setState(158);
 			match(ID);
-			setState(170);
+			setState(159);
 			match(EQUALS);
-			setState(173);
+			setState(162);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,16,_ctx) ) {
 			case 1:
 				{
-				setState(171);
+				setState(160);
 				expression(0);
 				}
 				break;
 			case 2:
 				{
-				setState(172);
+				setState(161);
 				function_call();
 				}
 				break;
 			}
-			setState(175);
+			setState(164);
 			match(SEMICOLON);
 			}
 		}
@@ -1248,15 +1175,15 @@ public class DaemonScriptParser extends Parser {
 
 	public final While_statementContext while_statement() throws RecognitionException {
 		While_statementContext _localctx = new While_statementContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_while_statement);
+		enterRule(_localctx, 28, RULE_while_statement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(177);
+			setState(166);
 			match(WHILE);
-			setState(178);
+			setState(167);
 			expression(0);
-			setState(179);
+			setState(168);
 			statement_block();
 			}
 		}
@@ -1298,15 +1225,15 @@ public class DaemonScriptParser extends Parser {
 
 	public final Statement_blockContext statement_block() throws RecognitionException {
 		Statement_blockContext _localctx = new Statement_blockContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_statement_block);
+		enterRule(_localctx, 30, RULE_statement_block);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(181);
+			setState(170);
 			match(BRACKET_START);
-			setState(182);
+			setState(171);
 			block();
-			setState(183);
+			setState(172);
 			match(BRACKET_END);
 			}
 		}
@@ -1359,31 +1286,31 @@ public class DaemonScriptParser extends Parser {
 
 	public final If_statementContext if_statement() throws RecognitionException {
 		If_statementContext _localctx = new If_statementContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_if_statement);
+		enterRule(_localctx, 32, RULE_if_statement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(185);
+			setState(174);
 			match(IF);
-			setState(186);
+			setState(175);
 			match(PARANTHESE_START);
-			setState(187);
+			setState(176);
 			expression(0);
-			setState(188);
+			setState(177);
 			match(PARANTHESE_END);
-			setState(189);
+			setState(178);
 			match(THEN);
-			setState(190);
+			setState(179);
 			((If_statementContext)_localctx).trueVal = statement_block();
-			setState(193);
+			setState(182);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ELSE) {
 				{
-				setState(191);
+				setState(180);
 				match(ELSE);
-				setState(192);
+				setState(181);
 				((If_statementContext)_localctx).falseVal = statement_block();
 				}
 			}
@@ -1432,34 +1359,34 @@ public class DaemonScriptParser extends Parser {
 
 	public final BlockContext block() throws RecognitionException {
 		BlockContext _localctx = new BlockContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_block);
+		enterRule(_localctx, 34, RULE_block);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(198);
+			setState(187);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(195);
+					setState(184);
 					statement();
 					}
 					} 
 				}
-				setState(200);
+				setState(189);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
 			}
-			setState(202);
+			setState(191);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==RETURN) {
 				{
-				setState(201);
+				setState(190);
 				return_statement();
 				}
 			}
@@ -1831,25 +1758,25 @@ public class DaemonScriptParser extends Parser {
 		int _parentState = getState();
 		ExpressionContext _localctx = new ExpressionContext(_ctx, _parentState);
 		ExpressionContext _prevctx = _localctx;
-		int _startState = 38;
-		enterRecursionRule(_localctx, 38, RULE_expression, _p);
+		int _startState = 36;
+		enterRecursionRule(_localctx, 36, RULE_expression, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(221);
+			setState(210);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
 			case 1:
 				{
 				_localctx = new ExMinusContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(205);
+				setState(194);
 				match(MINUS);
-				setState(206);
+				setState(195);
 				expression(16);
 				}
 				break;
@@ -1858,9 +1785,9 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExNotContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(207);
+				setState(196);
 				match(NOT);
-				setState(208);
+				setState(197);
 				expression(15);
 				}
 				break;
@@ -1869,7 +1796,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExConsoleScanStringContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(209);
+				setState(198);
 				console_scan_string();
 				}
 				break;
@@ -1878,7 +1805,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExConsoleScanIntContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(210);
+				setState(199);
 				console_scan_int();
 				}
 				break;
@@ -1887,7 +1814,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExFunction_CallContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(211);
+				setState(200);
 				function_call();
 				}
 				break;
@@ -1896,7 +1823,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExArrayContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(212);
+				setState(201);
 				array();
 				}
 				break;
@@ -1905,11 +1832,11 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new ExParContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(213);
+				setState(202);
 				match(PARANTHESE_START);
-				setState(214);
+				setState(203);
 				expression(0);
-				setState(215);
+				setState(204);
 				match(PARANTHESE_END);
 				}
 				break;
@@ -1918,7 +1845,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new AtomNumberContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(217);
+				setState(206);
 				_la = _input.LA(1);
 				if ( !(_la==INT || _la==FLOAT) ) {
 				_errHandler.recoverInline(this);
@@ -1935,7 +1862,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new AtomBooleanContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(218);
+				setState(207);
 				_la = _input.LA(1);
 				if ( !(_la==TRUE || _la==FALSE) ) {
 				_errHandler.recoverInline(this);
@@ -1952,7 +1879,7 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new AtomIdContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(219);
+				setState(208);
 				match(ID);
 				}
 				break;
@@ -1961,30 +1888,30 @@ public class DaemonScriptParser extends Parser {
 				_localctx = new AtomStringContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(220);
+				setState(209);
 				match(STRING);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(240);
+			setState(229);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,22,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(238);
+					setState(227);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ExMultiplyContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(223);
+						setState(212);
 						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
-						setState(224);
+						setState(213);
 						((ExMultiplyContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MULT) | (1L << DIV) | (1L << MOD))) != 0)) ) {
@@ -1995,7 +1922,7 @@ public class DaemonScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(225);
+						setState(214);
 						expression(15);
 						}
 						break;
@@ -2003,9 +1930,9 @@ public class DaemonScriptParser extends Parser {
 						{
 						_localctx = new ExAdditiveContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(226);
+						setState(215);
 						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
-						setState(227);
+						setState(216);
 						((ExAdditiveContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==PLUS || _la==MINUS) ) {
@@ -2016,7 +1943,7 @@ public class DaemonScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(228);
+						setState(217);
 						expression(14);
 						}
 						break;
@@ -2024,9 +1951,9 @@ public class DaemonScriptParser extends Parser {
 						{
 						_localctx = new ExRelationalContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(229);
+						setState(218);
 						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
-						setState(230);
+						setState(219);
 						((ExRelationalContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EQ) | (1L << NEQ) | (1L << GT) | (1L << LT) | (1L << GTEQ) | (1L << LTEQ))) != 0)) ) {
@@ -2037,7 +1964,7 @@ public class DaemonScriptParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(231);
+						setState(220);
 						expression(13);
 						}
 						break;
@@ -2045,11 +1972,11 @@ public class DaemonScriptParser extends Parser {
 						{
 						_localctx = new ExAndContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(232);
+						setState(221);
 						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
-						setState(233);
+						setState(222);
 						match(AND);
-						setState(234);
+						setState(223);
 						expression(12);
 						}
 						break;
@@ -2057,20 +1984,20 @@ public class DaemonScriptParser extends Parser {
 						{
 						_localctx = new ExOrContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(235);
+						setState(224);
 						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
-						setState(236);
+						setState(225);
 						match(OR);
-						setState(237);
+						setState(226);
 						expression(11);
 						}
 						break;
 					}
 					} 
 				}
-				setState(242);
+				setState(231);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,22,_ctx);
 			}
 			}
 		}
@@ -2087,7 +2014,7 @@ public class DaemonScriptParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 19:
+		case 18:
 			return expression_sempred((ExpressionContext)_localctx, predIndex);
 		}
 		return true;
@@ -2109,88 +2036,83 @@ public class DaemonScriptParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\67\u00f6\4\2\t\2"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\67\u00eb\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
-		"\4\23\t\23\4\24\t\24\4\25\t\25\3\2\3\2\3\2\3\2\3\3\3\3\3\3\7\3\62\n\3"+
-		"\f\3\16\3\65\13\3\3\3\3\3\3\4\7\4:\n\4\f\4\16\4=\13\4\3\5\3\5\3\5\3\5"+
-		"\3\5\3\5\3\5\3\5\3\5\5\5H\n\5\3\6\3\6\3\6\7\6M\n\6\f\6\16\6P\13\6\3\7"+
-		"\3\7\3\7\3\7\7\7V\n\7\f\7\16\7Y\13\7\5\7[\n\7\3\7\3\7\3\b\3\b\3\b\3\b"+
-		"\3\b\5\bd\n\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\5\to\n\t\3\n\3\n\3\n"+
-		"\3\n\3\n\3\n\5\nw\n\n\3\13\3\13\3\13\5\13|\n\13\3\13\3\13\3\13\3\13\5"+
-		"\13\u0082\n\13\3\13\3\13\3\f\3\f\3\f\5\f\u0089\n\f\3\r\3\r\3\r\3\r\3\16"+
-		"\3\16\5\16\u0091\n\16\3\16\3\16\3\16\5\16\u0096\n\16\3\16\3\16\5\16\u009a"+
-		"\n\16\3\17\3\17\3\17\3\17\3\17\3\17\7\17\u00a2\n\17\f\17\16\17\u00a5\13"+
-		"\17\5\17\u00a7\n\17\3\17\3\17\3\17\3\20\3\20\3\20\3\20\5\20\u00b0\n\20"+
-		"\3\20\3\20\3\21\3\21\3\21\3\21\3\22\3\22\3\22\3\22\3\23\3\23\3\23\3\23"+
-		"\3\23\3\23\3\23\3\23\5\23\u00c4\n\23\3\24\7\24\u00c7\n\24\f\24\16\24\u00ca"+
-		"\13\24\3\24\5\24\u00cd\n\24\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3"+
-		"\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\5\25\u00e0\n\25\3\25\3\25"+
-		"\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\7\25"+
-		"\u00f1\n\25\f\25\16\25\u00f4\13\25\3\25\2\3(\26\2\4\6\b\n\f\16\20\22\24"+
-		"\26\30\32\34\36 \"$&(\2\7\3\2()\3\2\20\21\3\2\34\36\3\2\32\33\3\2\24\31"+
-		"\2\u010c\2*\3\2\2\2\4.\3\2\2\2\6;\3\2\2\2\bG\3\2\2\2\nI\3\2\2\2\fQ\3\2"+
-		"\2\2\16^\3\2\2\2\20h\3\2\2\2\22p\3\2\2\2\24x\3\2\2\2\26\u0085\3\2\2\2"+
-		"\30\u008a\3\2\2\2\32\u0090\3\2\2\2\34\u009b\3\2\2\2\36\u00ab\3\2\2\2 "+
-		"\u00b3\3\2\2\2\"\u00b7\3\2\2\2$\u00bb\3\2\2\2&\u00c8\3\2\2\2(\u00df\3"+
-		"\2\2\2*+\5\4\3\2+,\5\6\4\2,-\7\2\2\3-\3\3\2\2\2./\7\3\2\2/\63\7\60\2\2"+
-		"\60\62\5\b\5\2\61\60\3\2\2\2\62\65\3\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2"+
-		"\64\66\3\2\2\2\65\63\3\2\2\2\66\67\7\61\2\2\67\5\3\2\2\28:\5\b\5\298\3"+
-		"\2\2\2:=\3\2\2\2;9\3\2\2\2;<\3\2\2\2<\7\3\2\2\2=;\3\2\2\2>H\5\26\f\2?"+
-		"H\5\24\13\2@H\5\36\20\2AH\5\16\b\2BH\5 \21\2CH\5$\23\2DH\5\32\16\2EH\5"+
-		"\34\17\2FH\5\30\r\2G>\3\2\2\2G?\3\2\2\2G@\3\2\2\2GA\3\2\2\2GB\3\2\2\2"+
-		"GC\3\2\2\2GD\3\2\2\2GE\3\2\2\2GF\3\2\2\2H\t\3\2\2\2IN\5(\25\2JK\7\65\2"+
-		"\2KM\5(\25\2LJ\3\2\2\2MP\3\2\2\2NL\3\2\2\2NO\3\2\2\2O\13\3\2\2\2PN\3\2"+
-		"\2\2QZ\7\60\2\2RW\5(\25\2ST\7\65\2\2TV\5(\25\2US\3\2\2\2VY\3\2\2\2WU\3"+
-		"\2\2\2WX\3\2\2\2X[\3\2\2\2YW\3\2\2\2ZR\3\2\2\2Z[\3\2\2\2[\\\3\2\2\2\\"+
-		"]\7\61\2\2]\r\3\2\2\2^_\7!\2\2_`\7%\2\2`a\7\"\2\2ac\7.\2\2bd\5(\25\2c"+
-		"b\3\2\2\2cd\3\2\2\2de\3\2\2\2ef\7/\2\2fg\7,\2\2g\17\3\2\2\2hi\7!\2\2i"+
-		"j\7%\2\2jk\7$\2\2kl\7.\2\2ln\7/\2\2mo\7,\2\2nm\3\2\2\2no\3\2\2\2o\21\3"+
-		"\2\2\2pq\7!\2\2qr\7%\2\2rs\7#\2\2st\7.\2\2tv\7/\2\2uw\7,\2\2vu\3\2\2\2"+
-		"vw\3\2\2\2w\23\3\2\2\2xy\7\5\2\2y{\7\27\2\2z|\7\6\2\2{z\3\2\2\2{|\3\2"+
-		"\2\2|}\3\2\2\2}~\7\26\2\2~\u0081\7&\2\2\177\u0080\7\62\2\2\u0080\u0082"+
-		"\5(\25\2\u0081\177\3\2\2\2\u0081\u0082\3\2\2\2\u0082\u0083\3\2\2\2\u0083"+
-		"\u0084\7,\2\2\u0084\25\3\2\2\2\u0085\u0086\7\6\2\2\u0086\u0088\7&\2\2"+
-		"\u0087\u0089\7,\2\2\u0088\u0087\3\2\2\2\u0088\u0089\3\2\2\2\u0089\27\3"+
-		"\2\2\2\u008a\u008b\7\4\2\2\u008b\u008c\5(\25\2\u008c\u008d\7,\2\2\u008d"+
-		"\31\3\2\2\2\u008e\u008f\7&\2\2\u008f\u0091\7%\2\2\u0090\u008e\3\2\2\2"+
-		"\u0090\u0091\3\2\2\2\u0091\u0092\3\2\2\2\u0092\u0093\7&\2\2\u0093\u0095"+
-		"\7.\2\2\u0094\u0096\5\n\6\2\u0095\u0094\3\2\2\2\u0095\u0096\3\2\2\2\u0096"+
-		"\u0097\3\2\2\2\u0097\u0099\7/\2\2\u0098\u009a\7,\2\2\u0099\u0098\3\2\2"+
-		"\2\u0099\u009a\3\2\2\2\u009a\33\3\2\2\2\u009b\u009c\7\6\2\2\u009c\u009d"+
-		"\7&\2\2\u009d\u00a6\7.\2\2\u009e\u00a3\5\26\f\2\u009f\u00a0\7\65\2\2\u00a0"+
-		"\u00a2\5\26\f\2\u00a1\u009f\3\2\2\2\u00a2\u00a5\3\2\2\2\u00a3\u00a1\3"+
-		"\2\2\2\u00a3\u00a4\3\2\2\2\u00a4\u00a7\3\2\2\2\u00a5\u00a3\3\2\2\2\u00a6"+
-		"\u009e\3\2\2\2\u00a6\u00a7\3\2\2\2\u00a7\u00a8\3\2\2\2\u00a8\u00a9\7/"+
-		"\2\2\u00a9\u00aa\5\"\22\2\u00aa\35\3\2\2\2\u00ab\u00ac\7&\2\2\u00ac\u00af"+
-		"\7\62\2\2\u00ad\u00b0\5(\25\2\u00ae\u00b0\5\32\16\2\u00af\u00ad\3\2\2"+
-		"\2\u00af\u00ae\3\2\2\2\u00b0\u00b1\3\2\2\2\u00b1\u00b2\7,\2\2\u00b2\37"+
-		"\3\2\2\2\u00b3\u00b4\7\17\2\2\u00b4\u00b5\5(\25\2\u00b5\u00b6\5\"\22\2"+
-		"\u00b6!\3\2\2\2\u00b7\u00b8\7\60\2\2\u00b8\u00b9\5&\24\2\u00b9\u00ba\7"+
-		"\61\2\2\u00ba#\3\2\2\2\u00bb\u00bc\7\r\2\2\u00bc\u00bd\7.\2\2\u00bd\u00be"+
-		"\5(\25\2\u00be\u00bf\7/\2\2\u00bf\u00c0\7\f\2\2\u00c0\u00c3\5\"\22\2\u00c1"+
-		"\u00c2\7\16\2\2\u00c2\u00c4\5\"\22\2\u00c3\u00c1\3\2\2\2\u00c3\u00c4\3"+
-		"\2\2\2\u00c4%\3\2\2\2\u00c5\u00c7\5\b\5\2\u00c6\u00c5\3\2\2\2\u00c7\u00ca"+
-		"\3\2\2\2\u00c8\u00c6\3\2\2\2\u00c8\u00c9\3\2\2\2\u00c9\u00cc\3\2\2\2\u00ca"+
-		"\u00c8\3\2\2\2\u00cb\u00cd\5\30\r\2\u00cc\u00cb\3\2\2\2\u00cc\u00cd\3"+
-		"\2\2\2\u00cd\'\3\2\2\2\u00ce\u00cf\b\25\1\2\u00cf\u00d0\7\33\2\2\u00d0"+
-		"\u00e0\5(\25\22\u00d1\u00d2\7\37\2\2\u00d2\u00e0\5(\25\21\u00d3\u00e0"+
-		"\5\20\t\2\u00d4\u00e0\5\22\n\2\u00d5\u00e0\5\32\16\2\u00d6\u00e0\5\f\7"+
-		"\2\u00d7\u00d8\7.\2\2\u00d8\u00d9\5(\25\2\u00d9\u00da\7/\2\2\u00da\u00e0"+
-		"\3\2\2\2\u00db\u00e0\t\2\2\2\u00dc\u00e0\t\3\2\2\u00dd\u00e0\7&\2\2\u00de"+
-		"\u00e0\7+\2\2\u00df\u00ce\3\2\2\2\u00df\u00d1\3\2\2\2\u00df\u00d3\3\2"+
-		"\2\2\u00df\u00d4\3\2\2\2\u00df\u00d5\3\2\2\2\u00df\u00d6\3\2\2\2\u00df"+
-		"\u00d7\3\2\2\2\u00df\u00db\3\2\2\2\u00df\u00dc\3\2\2\2\u00df\u00dd\3\2"+
-		"\2\2\u00df\u00de\3\2\2\2\u00e0\u00f2\3\2\2\2\u00e1\u00e2\f\20\2\2\u00e2"+
-		"\u00e3\t\4\2\2\u00e3\u00f1\5(\25\21\u00e4\u00e5\f\17\2\2\u00e5\u00e6\t"+
-		"\5\2\2\u00e6\u00f1\5(\25\20\u00e7\u00e8\f\16\2\2\u00e8\u00e9\t\6\2\2\u00e9"+
-		"\u00f1\5(\25\17\u00ea\u00eb\f\r\2\2\u00eb\u00ec\7\23\2\2\u00ec\u00f1\5"+
-		"(\25\16\u00ed\u00ee\f\f\2\2\u00ee\u00ef\7\22\2\2\u00ef\u00f1\5(\25\r\u00f0"+
-		"\u00e1\3\2\2\2\u00f0\u00e4\3\2\2\2\u00f0\u00e7\3\2\2\2\u00f0\u00ea\3\2"+
-		"\2\2\u00f0\u00ed\3\2\2\2\u00f1\u00f4\3\2\2\2\u00f2\u00f0\3\2\2\2\u00f2"+
-		"\u00f3\3\2\2\2\u00f3)\3\2\2\2\u00f4\u00f2\3\2\2\2\32\63;GNWZcnv{\u0081"+
-		"\u0088\u0090\u0095\u0099\u00a3\u00a6\u00af\u00c3\u00c8\u00cc\u00df\u00f0"+
-		"\u00f2";
+		"\4\23\t\23\4\24\t\24\3\2\3\2\3\2\3\2\3\3\3\3\3\3\7\3\60\n\3\f\3\16\3\63"+
+		"\13\3\3\3\3\3\3\4\7\48\n\4\f\4\16\4;\13\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5"+
+		"\3\5\5\5E\n\5\3\6\3\6\3\6\7\6J\n\6\f\6\16\6M\13\6\3\7\3\7\3\7\3\7\7\7"+
+		"S\n\7\f\7\16\7V\13\7\5\7X\n\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\5\ba\n\b\3\b"+
+		"\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\5\tl\n\t\3\n\3\n\3\n\3\n\3\n\3\n\5\n"+
+		"t\n\n\3\13\3\13\3\13\3\13\5\13z\n\13\3\13\3\13\5\13~\n\13\3\f\3\f\3\f"+
+		"\3\f\3\r\3\r\5\r\u0086\n\r\3\r\3\r\3\r\5\r\u008b\n\r\3\r\3\r\5\r\u008f"+
+		"\n\r\3\16\3\16\3\16\3\16\3\16\3\16\7\16\u0097\n\16\f\16\16\16\u009a\13"+
+		"\16\5\16\u009c\n\16\3\16\3\16\3\16\3\17\3\17\3\17\3\17\5\17\u00a5\n\17"+
+		"\3\17\3\17\3\20\3\20\3\20\3\20\3\21\3\21\3\21\3\21\3\22\3\22\3\22\3\22"+
+		"\3\22\3\22\3\22\3\22\5\22\u00b9\n\22\3\23\7\23\u00bc\n\23\f\23\16\23\u00bf"+
+		"\13\23\3\23\5\23\u00c2\n\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3"+
+		"\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24\u00d5\n\24\3\24\3\24"+
+		"\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\7\24"+
+		"\u00e6\n\24\f\24\16\24\u00e9\13\24\3\24\2\3&\25\2\4\6\b\n\f\16\20\22\24"+
+		"\26\30\32\34\36 \"$&\2\7\3\2()\3\2\20\21\3\2\34\36\3\2\32\33\3\2\24\31"+
+		"\2\u0100\2(\3\2\2\2\4,\3\2\2\2\69\3\2\2\2\bD\3\2\2\2\nF\3\2\2\2\fN\3\2"+
+		"\2\2\16[\3\2\2\2\20e\3\2\2\2\22m\3\2\2\2\24u\3\2\2\2\26\177\3\2\2\2\30"+
+		"\u0085\3\2\2\2\32\u0090\3\2\2\2\34\u00a0\3\2\2\2\36\u00a8\3\2\2\2 \u00ac"+
+		"\3\2\2\2\"\u00b0\3\2\2\2$\u00bd\3\2\2\2&\u00d4\3\2\2\2()\5\4\3\2)*\5\6"+
+		"\4\2*+\7\2\2\3+\3\3\2\2\2,-\7\3\2\2-\61\7\60\2\2.\60\5\b\5\2/.\3\2\2\2"+
+		"\60\63\3\2\2\2\61/\3\2\2\2\61\62\3\2\2\2\62\64\3\2\2\2\63\61\3\2\2\2\64"+
+		"\65\7\61\2\2\65\5\3\2\2\2\668\5\b\5\2\67\66\3\2\2\28;\3\2\2\29\67\3\2"+
+		"\2\29:\3\2\2\2:\7\3\2\2\2;9\3\2\2\2<E\5\24\13\2=E\5\34\17\2>E\5\16\b\2"+
+		"?E\5\36\20\2@E\5\"\22\2AE\5\30\r\2BE\5\32\16\2CE\5\26\f\2D<\3\2\2\2D="+
+		"\3\2\2\2D>\3\2\2\2D?\3\2\2\2D@\3\2\2\2DA\3\2\2\2DB\3\2\2\2DC\3\2\2\2E"+
+		"\t\3\2\2\2FK\5&\24\2GH\7\65\2\2HJ\5&\24\2IG\3\2\2\2JM\3\2\2\2KI\3\2\2"+
+		"\2KL\3\2\2\2L\13\3\2\2\2MK\3\2\2\2NW\7\60\2\2OT\5&\24\2PQ\7\65\2\2QS\5"+
+		"&\24\2RP\3\2\2\2SV\3\2\2\2TR\3\2\2\2TU\3\2\2\2UX\3\2\2\2VT\3\2\2\2WO\3"+
+		"\2\2\2WX\3\2\2\2XY\3\2\2\2YZ\7\61\2\2Z\r\3\2\2\2[\\\7!\2\2\\]\7%\2\2]"+
+		"^\7\"\2\2^`\7.\2\2_a\5&\24\2`_\3\2\2\2`a\3\2\2\2ab\3\2\2\2bc\7/\2\2cd"+
+		"\7,\2\2d\17\3\2\2\2ef\7!\2\2fg\7%\2\2gh\7$\2\2hi\7.\2\2ik\7/\2\2jl\7,"+
+		"\2\2kj\3\2\2\2kl\3\2\2\2l\21\3\2\2\2mn\7!\2\2no\7%\2\2op\7#\2\2pq\7.\2"+
+		"\2qs\7/\2\2rt\7,\2\2sr\3\2\2\2st\3\2\2\2t\23\3\2\2\2uy\7\5\2\2vw\7\27"+
+		"\2\2wx\7\5\2\2xz\7\26\2\2yv\3\2\2\2yz\3\2\2\2z{\3\2\2\2{}\7&\2\2|~\7,"+
+		"\2\2}|\3\2\2\2}~\3\2\2\2~\25\3\2\2\2\177\u0080\7\4\2\2\u0080\u0081\5&"+
+		"\24\2\u0081\u0082\7,\2\2\u0082\27\3\2\2\2\u0083\u0084\7&\2\2\u0084\u0086"+
+		"\7%\2\2\u0085\u0083\3\2\2\2\u0085\u0086\3\2\2\2\u0086\u0087\3\2\2\2\u0087"+
+		"\u0088\7&\2\2\u0088\u008a\7.\2\2\u0089\u008b\5\n\6\2\u008a\u0089\3\2\2"+
+		"\2\u008a\u008b\3\2\2\2\u008b\u008c\3\2\2\2\u008c\u008e\7/\2\2\u008d\u008f"+
+		"\7,\2\2\u008e\u008d\3\2\2\2\u008e\u008f\3\2\2\2\u008f\31\3\2\2\2\u0090"+
+		"\u0091\7\5\2\2\u0091\u0092\7&\2\2\u0092\u009b\7.\2\2\u0093\u0098\5\24"+
+		"\13\2\u0094\u0095\7\65\2\2\u0095\u0097\5\24\13\2\u0096\u0094\3\2\2\2\u0097"+
+		"\u009a\3\2\2\2\u0098\u0096\3\2\2\2\u0098\u0099\3\2\2\2\u0099\u009c\3\2"+
+		"\2\2\u009a\u0098\3\2\2\2\u009b\u0093\3\2\2\2\u009b\u009c\3\2\2\2\u009c"+
+		"\u009d\3\2\2\2\u009d\u009e\7/\2\2\u009e\u009f\5 \21\2\u009f\33\3\2\2\2"+
+		"\u00a0\u00a1\7&\2\2\u00a1\u00a4\7\62\2\2\u00a2\u00a5\5&\24\2\u00a3\u00a5"+
+		"\5\30\r\2\u00a4\u00a2\3\2\2\2\u00a4\u00a3\3\2\2\2\u00a5\u00a6\3\2\2\2"+
+		"\u00a6\u00a7\7,\2\2\u00a7\35\3\2\2\2\u00a8\u00a9\7\17\2\2\u00a9\u00aa"+
+		"\5&\24\2\u00aa\u00ab\5 \21\2\u00ab\37\3\2\2\2\u00ac\u00ad\7\60\2\2\u00ad"+
+		"\u00ae\5$\23\2\u00ae\u00af\7\61\2\2\u00af!\3\2\2\2\u00b0\u00b1\7\r\2\2"+
+		"\u00b1\u00b2\7.\2\2\u00b2\u00b3\5&\24\2\u00b3\u00b4\7/\2\2\u00b4\u00b5"+
+		"\7\f\2\2\u00b5\u00b8\5 \21\2\u00b6\u00b7\7\16\2\2\u00b7\u00b9\5 \21\2"+
+		"\u00b8\u00b6\3\2\2\2\u00b8\u00b9\3\2\2\2\u00b9#\3\2\2\2\u00ba\u00bc\5"+
+		"\b\5\2\u00bb\u00ba\3\2\2\2\u00bc\u00bf\3\2\2\2\u00bd\u00bb\3\2\2\2\u00bd"+
+		"\u00be\3\2\2\2\u00be\u00c1\3\2\2\2\u00bf\u00bd\3\2\2\2\u00c0\u00c2\5\26"+
+		"\f\2\u00c1\u00c0\3\2\2\2\u00c1\u00c2\3\2\2\2\u00c2%\3\2\2\2\u00c3\u00c4"+
+		"\b\24\1\2\u00c4\u00c5\7\33\2\2\u00c5\u00d5\5&\24\22\u00c6\u00c7\7\37\2"+
+		"\2\u00c7\u00d5\5&\24\21\u00c8\u00d5\5\20\t\2\u00c9\u00d5\5\22\n\2\u00ca"+
+		"\u00d5\5\30\r\2\u00cb\u00d5\5\f\7\2\u00cc\u00cd\7.\2\2\u00cd\u00ce\5&"+
+		"\24\2\u00ce\u00cf\7/\2\2\u00cf\u00d5\3\2\2\2\u00d0\u00d5\t\2\2\2\u00d1"+
+		"\u00d5\t\3\2\2\u00d2\u00d5\7&\2\2\u00d3\u00d5\7+\2\2\u00d4\u00c3\3\2\2"+
+		"\2\u00d4\u00c6\3\2\2\2\u00d4\u00c8\3\2\2\2\u00d4\u00c9\3\2\2\2\u00d4\u00ca"+
+		"\3\2\2\2\u00d4\u00cb\3\2\2\2\u00d4\u00cc\3\2\2\2\u00d4\u00d0\3\2\2\2\u00d4"+
+		"\u00d1\3\2\2\2\u00d4\u00d2\3\2\2\2\u00d4\u00d3\3\2\2\2\u00d5\u00e7\3\2"+
+		"\2\2\u00d6\u00d7\f\20\2\2\u00d7\u00d8\t\4\2\2\u00d8\u00e6\5&\24\21\u00d9"+
+		"\u00da\f\17\2\2\u00da\u00db\t\5\2\2\u00db\u00e6\5&\24\20\u00dc\u00dd\f"+
+		"\16\2\2\u00dd\u00de\t\6\2\2\u00de\u00e6\5&\24\17\u00df\u00e0\f\r\2\2\u00e0"+
+		"\u00e1\7\23\2\2\u00e1\u00e6\5&\24\16\u00e2\u00e3\f\f\2\2\u00e3\u00e4\7"+
+		"\22\2\2\u00e4\u00e6\5&\24\r\u00e5\u00d6\3\2\2\2\u00e5\u00d9\3\2\2\2\u00e5"+
+		"\u00dc\3\2\2\2\u00e5\u00df\3\2\2\2\u00e5\u00e2\3\2\2\2\u00e6\u00e9\3\2"+
+		"\2\2\u00e7\u00e5\3\2\2\2\u00e7\u00e8\3\2\2\2\u00e8\'\3\2\2\2\u00e9\u00e7"+
+		"\3\2\2\2\31\619DKTW`ksy}\u0085\u008a\u008e\u0098\u009b\u00a4\u00b8\u00bd"+
+		"\u00c1\u00d4\u00e5\u00e7";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

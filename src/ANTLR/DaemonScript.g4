@@ -16,7 +16,6 @@ functions:
 //statements
 statement:
         declaration
-    |   declaration_array
     |   assignment
     |   console_print
     |   while_statement
@@ -25,7 +24,6 @@ statement:
     |   function_declaration
     |   return_statement
     ;
-
 
 
 arguments:
@@ -48,12 +46,8 @@ console_scan_int:
         CONSOLE POINT SCANINT PARANTHESE_START PARANTHESE_END SEMICOLON?
     ;
 
-declaration_array:
-        LIST LT (objType=OBJ_TYPE)? GT ID (EQUALS expression)? SEMICOLON
-    ;
-
 declaration:
-        OBJ_TYPE ID SEMICOLON?
+        OBJ_TYPE (LT objType=OBJ_TYPE GT)? ID SEMICOLON?
     ;
 
 return_statement:
@@ -71,8 +65,6 @@ function_declaration:
 assignment:
         ID EQUALS (expression | function_call) SEMICOLON
     ;
-
-
 
 while_statement:
         WHILE expression statement_block
@@ -103,8 +95,6 @@ expression:
     |   console_scan_string                                 #ExConsoleScanString
     |   console_scan_int                                    #ExConsoleScanInt
     |   function_call                                       #ExFunction_Call
-
-        //TODO add Visitors CodeGenerator
     |   array                                               #ExArray
 
         |     '(' expression ')'        #ExPar
@@ -119,7 +109,6 @@ MAIN: 'Main';
 
 RETURN: 'return';
 
-    LIST: 'List';
 
 OBJ_TYPE:(
         NUMBER
@@ -130,6 +119,7 @@ OBJ_TYPE:(
     )
     ;
 
+    LIST: 'List';
     BOOLEAN: 'Boolean';
     TEXT: 'Text';
     NUMBER: 'Number';

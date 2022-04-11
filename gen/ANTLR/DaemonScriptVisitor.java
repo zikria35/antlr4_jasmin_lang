@@ -65,12 +65,6 @@ public interface DaemonScriptVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConsole_scan_int(DaemonScriptParser.Console_scan_intContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DaemonScriptParser#declaration_array}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDeclaration_array(DaemonScriptParser.Declaration_arrayContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link DaemonScriptParser#declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

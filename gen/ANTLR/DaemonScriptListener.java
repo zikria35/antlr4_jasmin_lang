@@ -98,16 +98,6 @@ public interface DaemonScriptListener extends ParseTreeListener {
 	 */
 	void exitConsole_scan_int(DaemonScriptParser.Console_scan_intContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link DaemonScriptParser#declaration_array}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclaration_array(DaemonScriptParser.Declaration_arrayContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link DaemonScriptParser#declaration_array}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclaration_array(DaemonScriptParser.Declaration_arrayContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link DaemonScriptParser#declaration}.
 	 * @param ctx the parse tree
 	 */

@@ -1,6 +1,5 @@
 package CodeGenerator;
 
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import ANTLR.*;
@@ -16,6 +15,7 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     private JasminBytecode jasminCode;
     private int numTernary = 0;
     private HashMap<String, String> functions;
+    private HashMap<String, String> declarations;
 
 
     /**
@@ -31,6 +31,7 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         this.types = types;
         this.symbols = symbols;
         functions = new HashMap<>();
+        declarations = new HashMap<>();
     }
 
     @Override
@@ -66,16 +67,16 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
 
     @Override
     public Void visitAssignment(DaemonScriptParser.AssignmentContext ctx) {
+
         visit( ctx.expression() );
         Symbol s = symbols.get(ctx);
-        if( s.getType() == DataType.INT )
+        if( s.getType() == DataType.INT || s.getType() == DataType.BOOLEAN)
             jasminCode.add("istore " + s.getLocalSlot());
         else
             jasminCode.add("astore " + s.getLocalSlot());
         return null;
     }
 
-    //TODO Array en boolean printen!
     @Override
     public Void visitConsole_print(DaemonScriptParser.Console_printContext ctx) {
         jasminCode.add("getstatic java/lang/System/out Ljava/io/PrintStream;");
@@ -84,6 +85,8 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
             jasminCode.add("invokevirtual java/io/PrintStream/println(I)V");
         else if( types.get(ctx.expression()) == DataType.STRING )
             jasminCode.add("invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V");
+        else if (types.get(ctx.expression()) == DataType.BOOLEAN )
+            jasminCode.add("invokevirtual java/io/PrintStream/println(Z)V");
         else
             throw new CompilerException("Unknown type in print");
         return null;
@@ -105,6 +108,12 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     }
 
     @Override
+    public Void visitDeclaration(DaemonScriptParser.DeclarationContext ctx) {
+        declarations.put(ctx.ID().getText(), ctx.OBJ_TYPE(0).getText());
+        return null;
+    }
+
+    @Override
     public Void visitExAdditive(DaemonScriptParser.ExAdditiveContext ctx) {
         visit( ctx.expression(0) );
         visit( ctx.expression(1) );
@@ -121,7 +130,7 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     @Override
     public Void visitAtomId(DaemonScriptParser.AtomIdContext ctx) {
         Symbol s = symbols.get(ctx);
-        if( s.getType() == DataType.INT )
+        if( s.getType() == DataType.INT || s.getType() == DataType.BOOLEAN)
             jasminCode.add("iload " + s.getLocalSlot());
         else
             jasminCode.add("aload " + s.getLocalSlot());
@@ -130,15 +139,37 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
 
     @Override
     public Void visitAtomNumber(DaemonScriptParser.AtomNumberContext ctx) {
+
         jasminCode.add( "ldc " + ctx.INT().getText() );
         return null;
     }
 
     @Override
+    public Void visitAtomBoolean(DaemonScriptParser.AtomBooleanContext ctx) {
+        if (ctx.TRUE() != null){
+            jasminCode.add("iconst_1");
+        }else {
+            jasminCode.add("iconst_0");
+        }
+        return null;
+    }
+
+    @Override
     public Void visitAtomString(DaemonScriptParser.AtomStringContext ctx) {
+
         String value = ctx.STRING().getText();
         value = value.substring(1, value.length()-1);
         jasminCode.add( "ldc \"" + value + "\"");
+        return null;
+    }
+
+    @Override
+    public Void visitExNot(DaemonScriptParser.ExNotContext ctx) {
+        visit(ctx.expression());
+        numTernary++;
+        String label = ("elseLabel" + numTernary);
+
+        jasminCode.add("ifne " + label);
         return null;
     }
 
@@ -162,7 +193,7 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
                 case "!=":  jasminCode.add("if_icmpne " + label); break;
                 default:    break;
             }
-        }else {
+        } else {
             label = ("elseLabel" + numTernary);
             switch ( ctx.op.getText() ) {
                 case "<=":  jasminCode.add("if_icmpgt " + label); break;
@@ -199,7 +230,6 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         if (ctx.falseVal != null) {
             visit(ctx.falseVal);
         }
-
 
         jasminCode.add(endLabel + ":");
 
@@ -259,24 +289,16 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < objIds.size(); i++) {
             switch (objTypes.get(i).toString()) {
-                case "Number":
-                    stringBuilder.append("I");
-                    break;
-                case "Boolean":
-                    stringBuilder.append("Z");
-                    break;
-                case "List":
-                    stringBuilder.append("[Ljava/lang/Object;");
-                    break;
-                case "Text":
-                    stringBuilder.append("Ljava/lang/String;");
-                    break;
-                default:
-                    throw new CompilerException("Unknown type in args");
+                case "Number" -> stringBuilder.append("I");
+                case "Boolean" -> stringBuilder.append("Z");
+                case "List" -> stringBuilder.append("[Ljava/lang/Object;");
+                case "Text" -> stringBuilder.append("Ljava/lang/String;");
+                default -> throw new CompilerException("Unknown type in args");
             }
         }
         return stringBuilder.toString();
     }
+
 
     @Override
     public Void visitFunction_declaration(DaemonScriptParser.Function_declarationContext ctx) {
@@ -288,9 +310,9 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         List<TerminalNode> objTypes = new ArrayList<>();
         List<TerminalNode> objIds = new ArrayList<>();
 
-        for (int i = 0; i < declarations.size(); i++) {
-            objTypes.add(declarations.get(i).OBJ_TYPE());
-            objIds.add(declarations.get(i).ID());
+        for (DaemonScriptParser.DeclarationContext declaration : declarations) {
+            objTypes.add(declaration.OBJ_TYPE(0));
+            objIds.add(declaration.ID());
         }
 
         String integerLit = "I";
@@ -301,28 +323,27 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
 
         //Return type switch
         switch (returnType) {
-            case "Number":
-                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")"+ integerLit);
+            case "Number" -> {
+                jasminCode.add(".method public static " + ctx.ID() + "(" + getArguments(objTypes, objIds) + ")" + integerLit);
                 functions.put(ctx.ID().getText(), integerLit);
-                break;
-            case "Boolean":
-                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")" + booleanLit);
+            }
+            case "Boolean" -> {
+                jasminCode.add(".method public static " + ctx.ID() + "(" + getArguments(objTypes, objIds) + ")" + booleanLit);
                 functions.put(ctx.ID().getText(), booleanLit);
-                break;
-            case "List":
-                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")" + listLit);
+            }
+            case "List" -> {
+                jasminCode.add(".method public static " + ctx.ID() + "(" + getArguments(objTypes, objIds) + ")" + listLit);
                 functions.put(ctx.ID().getText(), listLit);
-                break;
-            case "Text":
-                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")" + stringLit);
+            }
+            case "Text" -> {
+                jasminCode.add(".method public static " + ctx.ID() + "(" + getArguments(objTypes, objIds) + ")" + stringLit);
                 functions.put(ctx.ID().getText(), stringLit);
-                break;
-            case "Void":
-                jasminCode.add(".method public static "+ ctx.ID() +"("+getArguments(objTypes, objIds)+")" + voidLit);
+            }
+            case "Void" -> {
+                jasminCode.add(".method public static " + ctx.ID() + "(" + getArguments(objTypes, objIds) + ")" + voidLit);
                 functions.put(ctx.ID().getText(), voidLit);
-                break;
-            default:
-                throw new CompilerException("Unknown return type");
+            }
+            default -> throw new CompilerException("Unknown return type");
         }
         jasminCode.add(".limit stack 99");
         jasminCode.add(".limit locals 99");
@@ -354,15 +375,16 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         if (ctx.arguments() != null){
             List<DaemonScriptParser.ExpressionContext> args = ctx.arguments().expression();
             for (DaemonScriptParser.ExpressionContext arg : args) {
-                switch (arg.getRuleContext().getClass().getSimpleName()){
-                    case "AtomStringContext":
-                        argsBuilder.append("Ljava/lang/String;");
-                        break;
-                    case "AtomNumberContext":
-                        argsBuilder.append("I");
-                    case "AtomIdContext":
-                        //TODO: get type from given ID
-                        break;
+                switch (arg.getRuleContext().getClass().getSimpleName()) {
+                    case "AtomStringContext" -> argsBuilder.append("Ljava/lang/String;");
+                    case "AtomNumberContext" -> argsBuilder.append("I");
+                    case "AtomIdContext" -> {
+                        if ((declarations.get(arg.getText()).equals("Text"))) {
+                            argsBuilder.append("Ljava/lang/String;");
+                        } else {
+                            argsBuilder.append("I");
+                        }
+                    }
                 }
             }
         }

@@ -1,3 +1,16 @@
 Main[
-    List<Text> arr;
+    Number input1;
+    Number input2;
+    Number result;
+
+    input1 = console.scanNumber();
+    input2 = console.scanNumber();
+
+    result = addNumbers(input1, input2);
+
+    console.print(result);
+]
+
+Number addNumbers(Number num1, Number num2) [
+    return num1+num2;
 ]

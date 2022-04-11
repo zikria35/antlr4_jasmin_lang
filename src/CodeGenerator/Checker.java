@@ -4,16 +4,12 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import ANTLR.*;
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
 
 public class Checker extends DaemonScriptBaseVisitor<DataType>{
     private ParseTreeProperty<DataType> types;
     private ParseTreeProperty<Symbol> symbols;
     private Scope currentScope = new Scope();
     private int numLocals = 0;
-  //  private HashMap<String, String> functions;
 
     public Checker( ParseTreeProperty<DataType> types,
                     ParseTreeProperty<Symbol> symbols ) {
@@ -65,7 +61,7 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
     public DataType visitExAdditive(DaemonScriptParser.ExAdditiveContext ctx) {
         DataType leftType = visit(ctx.expression(0));
         DataType rightType = visit(ctx.expression(1));
-        if( leftType != rightType )
+        if( leftType != rightType && leftType != DataType.STRING && rightType != DataType.STRING )
             throw new CompilerException("Left and right type are not the same!");
         return addType(ctx, leftType);
     }
@@ -80,34 +76,17 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
     }
 
     @Override
-    public DataType visitDeclaration_array(DaemonScriptParser.Declaration_arrayContext ctx) {
-        String varName = ctx.ID().getText();
-        DataType varType = DataType.LIST;
-
-        numLocals++;
-
-        Symbol s = currentScope.lookupVariable(varName);
-
-        if( s != null )
-            throw new CompilerException("Already declared variable called " + varName);
-
-        currentScope.declareVariable(new Symbol(varName, varType, numLocals));
-        return null;
-    }
-
-    @Override
     public DataType visitDeclaration(DaemonScriptParser.DeclarationContext ctx) {
         String varName = ctx.ID().getText();
-        DataType varType = switch (ctx.OBJ_TYPE().toString()) {
+        DataType varType = switch (ctx.OBJ_TYPE(0).toString()) {
             case "Number" -> DataType.INT;
             case "Boolean" -> DataType.BOOLEAN;
+            case "List" -> DataType.LIST;
             case "Void" -> DataType.VOID;
             default -> DataType.STRING;
         };
-
         //Check if declaration is inside of a Function declaration
         numLocals++;
-
         Symbol s = currentScope.lookupVariable(varName);
         if( s != null )
             throw new CompilerException("Already declared variable called " + varName);
@@ -128,7 +107,12 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
             if (ctx.expression().getRuleContext().getClass().equals(DaemonScriptParser.ExConsoleScanIntContext.class)){
                 //Int Scanner
                 expressionType = DataType.INT;
-            } else {
+            }else if(ctx.expression().getRuleContext().getClass().equals(DaemonScriptParser.ExArrayContext.class)){
+                //List
+                expressionType = DataType.LIST;
+            } else if (ctx.expression().getRuleContext().getClass().equals(DaemonScriptParser.AtomBooleanContext.class)){
+                expressionType = DataType.BOOLEAN;
+            }else {
                 //String Scanner
                 expressionType = DataType.STRING;
             }
