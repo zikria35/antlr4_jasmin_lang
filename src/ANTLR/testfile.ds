@@ -1,7 +1,8 @@
 Main[
     Number number;
-    number = console.scanNumber();
-    if (number < 10 || number == 20 || number == 50) then [
-        console.print({true!});
+    number = 5;
+    while(number < 5)[
+        console.print(number);
+        number = number - 1;
     ]
 ]

@@ -207,6 +207,23 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     }
 
     @Override
+    public Void visitWhile_statement(DaemonScriptParser.While_statementContext ctx) {
+
+        String startLabel = ("startLabel" + (numTernary + 1));
+        String elseLabel = ("elseLabel" + (numTernary + 1));
+
+        jasminCode.add(startLabel + ":");
+        if (ctx.expression() != null) {
+            visit(ctx.expression());
+            visit(ctx.statement_block());
+            jasminCode.add("goto " + startLabel);
+        }
+        jasminCode.add(elseLabel + ":");
+
+        return null;
+    }
+
+    @Override
     public Void visitExAnd(DaemonScriptParser.ExAndContext ctx) {
         visit(ctx.expression(0));
         numTernary--;
