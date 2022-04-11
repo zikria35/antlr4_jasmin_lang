@@ -148,32 +148,33 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
         visit(ctx.expression(1));
         numTernary++;
 
-        String trueLabel = ("ternary" + numTernary);
-        String endLabel = ("ternaryEnd" + numTernary);
+        String label;
 
-        if (ctx.getParent().getRuleContext().getPayload().getClass().equals(DaemonScriptParser.ExAndContext.class)) {
-            //AND Ctx
+        //OR Ctx
+        if(ctx.getParent().getRuleContext().getPayload().getClass().equals(DaemonScriptParser.ExOrContext.class)){
+            label = ("trueLabel" + numTernary);
             switch ( ctx.op.getText() ) {
-                case "<=":  jasminCode.add("if_icmpgt " + trueLabel); break;
-                case ">=":  jasminCode.add("if_icmplt " + trueLabel); break;
-                case "<":   jasminCode.add("if_icmpge " + trueLabel); break;
-                case ">":   jasminCode.add("if_icmple " + trueLabel); break;
-                case "==":  jasminCode.add("if_icmpne " + trueLabel); break;
-                case "!=":  jasminCode.add("if_icmpeq " + trueLabel); break;
+                case "<=":  jasminCode.add("if_icmple " + label); break;
+                case ">=":  jasminCode.add("if_icmpge " + label); break;
+                case "<":   jasminCode.add("if_icmplt " + label); break;
+                case ">":   jasminCode.add("if_icmpgt " + label); break;
+                case "==":  jasminCode.add("if_icmpeq " + label); break;
+                case "!=":  jasminCode.add("if_icmpne " + label); break;
                 default:    break;
             }
-        } else {
-            //OR Ctx
+        }else {
+            label = ("elseLabel" + numTernary);
             switch ( ctx.op.getText() ) {
-                case "<=":  jasminCode.add("if_icmple " + trueLabel); break;
-                case ">=":  jasminCode.add("if_icmpge " + trueLabel); break;
-                case "<":   jasminCode.add("if_icmplt " + trueLabel); break;
-                case ">":   jasminCode.add("if_icmpgt " + trueLabel); break;
-                case "==":  jasminCode.add("if_icmpeq " + trueLabel); break;
-                case "!=":  jasminCode.add("if_icmpne " + trueLabel); break;
+                case "<=":  jasminCode.add("if_icmpgt " + label); break;
+                case ">=":  jasminCode.add("if_icmplt " + label); break;
+                case "<":   jasminCode.add("if_icmpge " + label); break;
+                case ">":   jasminCode.add("if_icmple " + label); break;
+                case "==":  jasminCode.add("if_icmpne " + label); break;
+                case "!=":  jasminCode.add("if_icmpeq " + label); break;
                 default:    break;
             }
         }
+
 
         return null;
     }
@@ -182,16 +183,23 @@ public class CodeGenerator extends DaemonScriptBaseVisitor<Void>{
     public Void visitIf_statement(DaemonScriptParser.If_statementContext ctx) {
         visit(ctx.expression());
 
-        String trueLabel = ("ternary" + numTernary);
+        String elseLabel = ("elseLabel" + numTernary);
         String endLabel = ("ternaryEnd" + numTernary);
+        String trueLabel = ("trueLabel" + numTernary);
 
-        if (ctx.falseVal != null) {
-            visit(ctx.falseVal);
+        if (ctx.expression().getRuleContext().getPayload().getClass().equals(DaemonScriptParser.ExOrContext.class)){
             jasminCode.add("goto " + endLabel);
         }
 
         jasminCode.add(trueLabel + ":");
         visit(ctx.trueVal);
+        jasminCode.add("goto " + endLabel);
+
+        jasminCode.add(elseLabel + ":");
+        if (ctx.falseVal != null) {
+            visit(ctx.falseVal);
+        }
+
 
         jasminCode.add(endLabel + ":");
 

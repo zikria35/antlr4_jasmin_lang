@@ -1,9 +1,7 @@
 Main[
     Number number;
-    number = giveNumber(1);
-    console.print(number);
-]
-
-Number giveNumber(Number num1)[
-    return num1;
+    number = console.scanNumber();
+    if (number < 10 || number == 20 || number == 50) then [
+        console.print({true!});
+    ]
 ]
