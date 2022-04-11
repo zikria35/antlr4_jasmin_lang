@@ -1,0 +1,9 @@
+Main[
+    printFunction();
+]
+
+Text printFunction()[
+    Text text; text = {test scoping !};
+    console.print(text);
+    return text;
+]

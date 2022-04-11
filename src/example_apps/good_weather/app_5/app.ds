@@ -1,0 +1,24 @@
+Main[
+    Text inputUser;
+    Boolean bool;
+    Text result;
+
+    inputUser = console.scanText();
+    bool = returnBool(inputUser);
+
+    if(bool == true) then [
+        result = {True!};
+    ] else [
+        result = {False!};
+    ]
+
+    console.print({Condition is } + result);
+]
+
+Boolean returnBool(Text input) [
+    if(input == {true}) then [
+        return true;
+    ] else [
+        return false;
+    ]
+]

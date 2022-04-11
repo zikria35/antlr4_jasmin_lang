@@ -1,0 +1,10 @@
+Main[
+    Text input;
+    input = {Hello World!};
+]
+Void voidFunction() [
+    console.print(input);
+]
+
+// Error: undefined variable: input
+// Variable is only available within current Scope!

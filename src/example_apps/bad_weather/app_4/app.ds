@@ -1,0 +1,7 @@
+Main[
+       Number number; number = 2;
+       Text text; text = {hello};
+       console.print(number * text);
+]
+
+// Error: Left and Right are not the same

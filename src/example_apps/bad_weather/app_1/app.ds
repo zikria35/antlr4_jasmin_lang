@@ -1,0 +1,5 @@
+Main[
+    console.print({Compilers & Operating systems !})
+]
+
+// Error: verwacht ';' aan het eind

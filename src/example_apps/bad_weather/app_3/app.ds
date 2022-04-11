@@ -1,0 +1,10 @@
+Main[
+    console.print(text);
+]
+
+Text printFunction()[
+    Text text; text = {test scoping !};
+    return text;
+]
+
+// Error: (Scoping) Undefined variable: text

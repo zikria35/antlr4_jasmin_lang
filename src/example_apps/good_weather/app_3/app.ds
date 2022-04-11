@@ -1,0 +1,13 @@
+Main[
+    Number counter;
+    counter = 1;
+
+    while(counter <= 5)[
+        function({Hello From While Loop !});
+        counter = counter + 1;
+   ]
+]
+
+Void function(Text text)[
+    console.print(text);
+]

@@ -1,0 +1,6 @@
+Main[
+    Number number; number = {test this};
+    console.print(number);
+]
+
+// Error: Assignment type is not correct

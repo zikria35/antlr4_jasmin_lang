@@ -1,0 +1,11 @@
+Main[
+    Number input;
+
+    input = console.scanNumber();
+
+    if(input > 10 || input < 10) then [
+        console.print({Your input is greater / less  than 10});
+    ] else [
+        console.print({Your input is 10});
+    ]
+]
