@@ -17,7 +17,7 @@ public class DaemonScriptParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		MAIN=1, RETURN=2, OBJ_TYPE=3, LIST=4, BOOLEAN=5, TEXT=6, NUMBER=7, VOID=8, 
+		MAIN=1, RETURN=2, LIST=3, OBJ_TYPE=4, BOOLEAN=5, TEXT=6, NUMBER=7, VOID=8, 
 		ARGS=9, THEN=10, IF=11, ELSE=12, WHILE=13, TRUE=14, FALSE=15, OR=16, AND=17, 
 		EQ=18, NEQ=19, GT=20, LT=21, GTEQ=22, LTEQ=23, PLUS=24, MINUS=25, MULT=26, 
 		DIV=27, MOD=28, NOT=29, NULL=30, CONSOLE=31, PRINT=32, SCANINT=33, SCANSTRING=34, 
@@ -44,7 +44,7 @@ public class DaemonScriptParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'Main'", "'return'", null, "'List'", "'Boolean'", "'Text'", "'Number'", 
+			null, "'Main'", "'return'", "'List'", null, "'Boolean'", "'Text'", "'Number'", 
 			"'Void'", "'args'", "'then'", "'if'", "'else'", "'while'", "'true'", 
 			"'false'", "'||'", "'&&'", "'=='", "'!='", "'>'", "'<'", "'>='", "'<='", 
 			"'+'", "'-'", "'*'", "'/'", "'%'", "'!'", "'null'", "'console'", "'print'", 
@@ -55,7 +55,7 @@ public class DaemonScriptParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "MAIN", "RETURN", "OBJ_TYPE", "LIST", "BOOLEAN", "TEXT", "NUMBER", 
+			null, "MAIN", "RETURN", "LIST", "OBJ_TYPE", "BOOLEAN", "TEXT", "NUMBER", 
 			"VOID", "ARGS", "THEN", "IF", "ELSE", "WHILE", "TRUE", "FALSE", "OR", 
 			"AND", "EQ", "NEQ", "GT", "LT", "GTEQ", "LTEQ", "PLUS", "MINUS", "MULT", 
 			"DIV", "MOD", "NOT", "NULL", "CONSOLE", "PRINT", "SCANINT", "SCANSTRING", 
@@ -210,7 +210,7 @@ public class DaemonScriptParser extends Parser {
 			setState(49);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RETURN) | (1L << OBJ_TYPE) | (1L << LIST) | (1L << IF) | (1L << WHILE) | (1L << CONSOLE) | (1L << ID))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RETURN) | (1L << LIST) | (1L << OBJ_TYPE) | (1L << IF) | (1L << WHILE) | (1L << CONSOLE) | (1L << ID))) != 0)) {
 				{
 				{
 				setState(46);
@@ -272,7 +272,7 @@ public class DaemonScriptParser extends Parser {
 			setState(57);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RETURN) | (1L << OBJ_TYPE) | (1L << LIST) | (1L << IF) | (1L << WHILE) | (1L << CONSOLE) | (1L << ID))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << RETURN) | (1L << LIST) | (1L << OBJ_TYPE) | (1L << IF) | (1L << WHILE) | (1L << CONSOLE) | (1L << ID))) != 0)) {
 				{
 				{
 				setState(54);
@@ -778,16 +778,17 @@ public class DaemonScriptParser extends Parser {
 	}
 
 	public static class Declaration_arrayContext extends ParserRuleContext {
+		public Token objType;
 		public TerminalNode LIST() { return getToken(DaemonScriptParser.LIST, 0); }
 		public TerminalNode LT() { return getToken(DaemonScriptParser.LT, 0); }
 		public TerminalNode GT() { return getToken(DaemonScriptParser.GT, 0); }
 		public TerminalNode ID() { return getToken(DaemonScriptParser.ID, 0); }
 		public TerminalNode SEMICOLON() { return getToken(DaemonScriptParser.SEMICOLON, 0); }
-		public TerminalNode OBJ_TYPE() { return getToken(DaemonScriptParser.OBJ_TYPE, 0); }
 		public TerminalNode EQUALS() { return getToken(DaemonScriptParser.EQUALS, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode OBJ_TYPE() { return getToken(DaemonScriptParser.OBJ_TYPE, 0); }
 		public Declaration_arrayContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -824,7 +825,7 @@ public class DaemonScriptParser extends Parser {
 			if (_la==OBJ_TYPE) {
 				{
 				setState(120);
-				match(OBJ_TYPE);
+				((Declaration_arrayContext)_localctx).objType = match(OBJ_TYPE);
 				}
 			}
 
@@ -2146,17 +2147,17 @@ public class DaemonScriptParser extends Parser {
 		"b\3\2\2\2cd\3\2\2\2de\3\2\2\2ef\7/\2\2fg\7,\2\2g\17\3\2\2\2hi\7!\2\2i"+
 		"j\7%\2\2jk\7$\2\2kl\7.\2\2ln\7/\2\2mo\7,\2\2nm\3\2\2\2no\3\2\2\2o\21\3"+
 		"\2\2\2pq\7!\2\2qr\7%\2\2rs\7#\2\2st\7.\2\2tv\7/\2\2uw\7,\2\2vu\3\2\2\2"+
-		"vw\3\2\2\2w\23\3\2\2\2xy\7\6\2\2y{\7\27\2\2z|\7\5\2\2{z\3\2\2\2{|\3\2"+
+		"vw\3\2\2\2w\23\3\2\2\2xy\7\5\2\2y{\7\27\2\2z|\7\6\2\2{z\3\2\2\2{|\3\2"+
 		"\2\2|}\3\2\2\2}~\7\26\2\2~\u0081\7&\2\2\177\u0080\7\62\2\2\u0080\u0082"+
 		"\5(\25\2\u0081\177\3\2\2\2\u0081\u0082\3\2\2\2\u0082\u0083\3\2\2\2\u0083"+
-		"\u0084\7,\2\2\u0084\25\3\2\2\2\u0085\u0086\7\5\2\2\u0086\u0088\7&\2\2"+
+		"\u0084\7,\2\2\u0084\25\3\2\2\2\u0085\u0086\7\6\2\2\u0086\u0088\7&\2\2"+
 		"\u0087\u0089\7,\2\2\u0088\u0087\3\2\2\2\u0088\u0089\3\2\2\2\u0089\27\3"+
 		"\2\2\2\u008a\u008b\7\4\2\2\u008b\u008c\5(\25\2\u008c\u008d\7,\2\2\u008d"+
 		"\31\3\2\2\2\u008e\u008f\7&\2\2\u008f\u0091\7%\2\2\u0090\u008e\3\2\2\2"+
 		"\u0090\u0091\3\2\2\2\u0091\u0092\3\2\2\2\u0092\u0093\7&\2\2\u0093\u0095"+
 		"\7.\2\2\u0094\u0096\5\n\6\2\u0095\u0094\3\2\2\2\u0095\u0096\3\2\2\2\u0096"+
 		"\u0097\3\2\2\2\u0097\u0099\7/\2\2\u0098\u009a\7,\2\2\u0099\u0098\3\2\2"+
-		"\2\u0099\u009a\3\2\2\2\u009a\33\3\2\2\2\u009b\u009c\7\5\2\2\u009c\u009d"+
+		"\2\u0099\u009a\3\2\2\2\u009a\33\3\2\2\2\u009b\u009c\7\6\2\2\u009c\u009d"+
 		"\7&\2\2\u009d\u00a6\7.\2\2\u009e\u00a3\5\26\f\2\u009f\u00a0\7\65\2\2\u00a0"+
 		"\u00a2\5\26\f\2\u00a1\u009f\3\2\2\2\u00a2\u00a5\3\2\2\2\u00a3\u00a1\3"+
 		"\2\2\2\u00a3\u00a4\3\2\2\2\u00a4\u00a7\3\2\2\2\u00a5\u00a3\3\2\2\2\u00a6"+

@@ -49,7 +49,7 @@ console_scan_int:
     ;
 
 declaration_array:
-        LIST LT (OBJ_TYPE)? GT ID (EQUALS expression)? SEMICOLON
+        LIST LT (objType=OBJ_TYPE)? GT ID (EQUALS expression)? SEMICOLON
     ;
 
 declaration:
@@ -119,6 +119,8 @@ MAIN: 'Main';
 
 RETURN: 'return';
 
+    LIST: 'List';
+
 OBJ_TYPE:(
         NUMBER
     |   TEXT
@@ -127,12 +129,11 @@ OBJ_TYPE:(
     |   VOID
     )
     ;
-    LIST: 'List';
+
     BOOLEAN: 'Boolean';
     TEXT: 'Text';
     NUMBER: 'Number';
     VOID: 'Void';
-
 ARGS: 'args';
 THEN: 'then';
 

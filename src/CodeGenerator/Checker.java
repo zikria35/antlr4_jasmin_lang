@@ -80,12 +80,27 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
     }
 
     @Override
+    public DataType visitDeclaration_array(DaemonScriptParser.Declaration_arrayContext ctx) {
+        String varName = ctx.ID().getText();
+        DataType varType = DataType.LIST;
+
+        numLocals++;
+
+        Symbol s = currentScope.lookupVariable(varName);
+
+        if( s != null )
+            throw new CompilerException("Already declared variable called " + varName);
+
+        currentScope.declareVariable(new Symbol(varName, varType, numLocals));
+        return null;
+    }
+
+    @Override
     public DataType visitDeclaration(DaemonScriptParser.DeclarationContext ctx) {
         String varName = ctx.ID().getText();
         DataType varType = switch (ctx.OBJ_TYPE().toString()) {
             case "Number" -> DataType.INT;
             case "Boolean" -> DataType.BOOLEAN;
-            case "List" -> DataType.LIST;
             case "Void" -> DataType.VOID;
             default -> DataType.STRING;
         };
@@ -100,8 +115,6 @@ public class Checker extends DaemonScriptBaseVisitor<DataType>{
         currentScope.declareVariable(new Symbol(varName, varType, numLocals));
         return null;
     }
-
-
 
     @Override
     public DataType visitAssignment(DaemonScriptParser.AssignmentContext ctx) {
